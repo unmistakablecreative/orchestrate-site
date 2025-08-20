@@ -1,42 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrchestrateOS: A Natural Language OS for AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F4; /* stone-100 - base background */
+            color: #292524; /* stone-800 */
+            line-height: 1.6; /* Improved line spacing for readability */
+        }
+        /* Removed .container max-width from global styles as sections will manage their own inner content width */
+        .section-padding {
+            padding-top: 5rem; /* Increased vertical padding for sections */
+            padding-bottom: 5rem;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 450px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #4f46e5; /* indigo-600 */
+            border-bottom-color: #4f46e5;
+        }
+        .tab.active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        /* Specific styles for problem-item accordion content */
+        .problem-item {
+            border-radius: 0; /* Make boxes square */
+        }
+        .problem-item .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .problem-item .problem-header {
+            display: flex;
+            flex-direction: column; /* Stack icon above text */
+            align-items: flex-start; /* Align content to the left */
+            justify-content: space-between; /* Puts arrow on the right */
+            width: 100%;
+            padding-bottom: 0.5rem; /* Add some space below header content */
+            position: relative; /* For positioning the arrow */
+        }
+        .problem-item .problem-header .arrow-icon {
+            transition: transform 0.3s ease;
+            position: absolute; /* Position arrow independently */
+            right: 0;
+            top: 0;
+            margin-left: 0; /* Reset margin */
+            flex-shrink: 0; /* Prevent arrow from shrinking */
+        }
+        .problem-item .problem-header.active .arrow-icon {
+            transform: rotate(180deg);
+        }
+        .problem-item .problem-header h3 {
+            flex-grow: 1; /* Allow title to take up available space */
+            text-align: left; /* Align title to left */
+            margin-top: 0.5rem; /* Space between icon and text */
+        }
+        .problem-item .problem-header .icon-wrapper {
+            flex-shrink: 0; /* Prevent icon from shrinking */
+            margin-right: 0; /* Reset margin */
+            width: 24px; /* Ensure consistent icon size */
+            height: 24px;
+        }
+        /* Styles for the interactive explorer components */
+        .architecture-component {
+            border: 1px solid transparent; /* Default transparent border */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .architecture-component.active {
+            border-color: #4f46e5; /* Indigo-600 border when active */
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2); /* Subtle shadow for active state */
+        }
+        /* Styling for the description box that appears below the clicked component */
+        .component-description-box {
+            background-color: #eef2ff; /* indigo-50 */
+            border-left: 4px solid #4f46e5; /* indigo-600 */
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .component-description-box.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Adjusted h2 font size for better fit on smaller screens */
+        .text-center h2 {
+            font-size: 2.25rem; /* Default for md:text-4xl */
+            line-height: 1.2;
+        }
+        @media (min-width: 768px) {
+            .text-center h2 {
+                font-size: 3rem; /* md:text-4xl */
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
 
-    <!DOCTYPE html>
-    <html lang='en'>
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>OrchestrateOS</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    </head>
-    
-    <body class='antialiased'>
-        
-    <section id='hero' class='text-center bg-black text-white py-20'>
-        <div class='max-w-3xl mx-auto px-6'>
-            <h1 class='text-4xl md:text-6xl font-bold mb-4'>Your Time, Your Tasks — Organized Effortlessly</h1>
-            <p class='text-lg md:text-xl'>TodoFlow helps you turn chaos into clarity with a natural-language to-do system.</p>
-        </div>
-    </section>
-    
-        
-    <section id='features' class='bg-black text-white py-20'>
-        <div class='max-w-4xl mx-auto px-6'>
-            <h2 class='text-3xl font-bold mb-12 text-center'>Features</h2>
-            <div class='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                <div class='p-4'>✅ Add tasks with simple phrases</div><div class='p-4'>🧠 AI-assisted task grouping</div><div class='p-4'>📆 Daily, weekly, and monthly views</div><div class='p-4'>📲 Sync across all devices</div><div class='p-4'>🗂️ Tags, priorities, and projects</div><div class='p-4'>📈 Progress tracking over time</div>
+    <!-- Header & Navigation -->
+    <header class="bg-stone-100/80 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-indigo-600">OrchestrateOS</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#problem" class="nav-link text-stone-600 font-medium border-b-2 border-transparent">The Problem</a>
+                <a href="#features" class="nav-link text-stone-600 font-medium border-b-2 border-transparent">Features</a>
+                <a href="#explorer" class="nav-link text-stone-600 font-medium border-b-2 border-transparent">Interactive Explorer</a>
+                <a href="#implications" class="nav-link text-stone-600 font-medium border-b-2 border-transparent">Impact</a>
             </div>
+            <button id="mobile-menu-button" class="md:hidden text-stone-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#problem" class="block px-6 py-3 text-stone-600 font-medium">The Problem</a>
+            <a href="#features" class="block px-6 py-3 text-stone-600 font-medium">Features</a>
+            <a href="#explorer" class="block px-6 py-3 text-stone-600 font-medium">Interactive Explorer</a>
+            <a href="#implications" class="block px-6 py-3 text-stone-600 font-medium">Impact</a>
         </div>
-    </section>
+    </header>
+
+    <!-- Main content area -->
+    <main>
+
+        <!-- Hero Section - full width -->
+        <section id="hero" class="text-center bg-black text-white py-20 w-full section-padding">
+            <div class="max-w-3xl mx-auto px-6">
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4">The World's First Natural Language Operating System</h1>
+                <p class="text-lg md:text-xl">
+                    OrchestrateOS transforms your AI tools into a cohesive system, enabling you to achieve your goals effortlessly. Focus on what matters while we handle the complexity behind the scenes.
+                </p>
+            </div>
+        </section>
+
+        <!-- The Problem Section -->
+        <section id="problem" class="bg-stone-100 w-full section-padding scroll-mt-20">
+            <div class="max-w-4xl mx-auto px-6"> <!-- Inner container for content width -->
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">The Lie of Effortless AI: Why You’re Still Doing the Work</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">Current AI tools promise to help, but often create more work. They forget, they don't connect, and they leave you to finish the job.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 items-stretch">
+                    <div class="problem-item bg-white p-6 shadow-sm text-left cursor-pointer flex flex-col justify-between">
+                        <div class="problem-header flex flex-col items-start justify-between flex-grow">
+                            <span class="text-indigo-600 w-8 h-8 icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brain-off">
+                                    <path d="M10.4 6.9c.7-.9 1.6-1.3 2.6-1.3 2.1 0 4.1 1.3 4.9 3.1"></path>
+                                    <path d="M12.8 21.8c-.9.6-2 .9-3.1.9-2.5 0-4.9-1.5-5.9-4"></path>
+                                    <path d="M2.3 16.4C-.6 11.7.9 5.8 5.6 2.9c.7-.4 1.5-.7 2.3-.9"></path>
+                                    <path d="M16.4 21.7c-2.7 1.2-6.1.3-8.1-2.1"></path>
+                                    <path d="M16 16a3 3 0 0 1-3 3"></path>
+                                    <path d="M12.9 10.9A5 5 0 0 0 16 16"></path>
+                                    <path d="M12.8 2.2a8.3 8.3 0 0 0-4.8 2.2"></path>
+                                    <path d="M17.8 7.2c1.6.4 2.9 1.3 3.5 2.5"></path>
+                                    <path d="M21.7 16.4c-1.2 2.7-3.5 4.7-6.2 5.5"></path>
+                                    <line x1="2" x2="22" y1="2" y2="22"></line>
+                                </svg>
+                            </span>
+                            <h3 class="font-bold text-lg text-stone-800">AI That Forgets Everything</h3>
+                            <span class="arrow-icon text-xl text-stone-600">▼</span>
+                        </div>
+                        <div class="accordion-content pt-4">
+                            <p class="text-sm text-stone-700">You constantly have to repeat yourself and re-explain tasks. Each interaction feels like starting from scratch, wasting your time and breaking your focus.</p>
+                        </div>
+                    </div>
+                    <div class="problem-item bg-white p-6 shadow-sm text-left cursor-pointer flex flex-col justify-between">
+                        <div class="problem-header flex flex-col items-start justify-between flex-grow">
+                            <span class="text-indigo-600 w-8 h-8 icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link-off">
+                                    <path d="M9 17H7A5 5 0 0 1 7 7h2"></path>
+                                    <path d="M15 7h2a5 5 0 0 1 0 10h-2"></path>
+                                    <line x1="8" x2="16" y1="12" y2="12"></line>
+                                    <line x1="2" x2="22" y1="2" y2="22"></line>
+                                </svg>
+                            </span>
+                            <h3 class="font-bold text-lg text-stone-800">Tools That Don't Talk to Each Other</h3>
+                            <span class="arrow-icon text-xl text-stone-600">▼</span>
+                        </div>
+                        <div class="accordion-content pt-4">
+                            <p class="text-sm text-stone-700">Your AI tools are isolated islands. You're left manually moving information, renaming files, and stitching together workflows by hand. The friction adds up, slowing you down.</p>
+                        </div>
+                    </div>
+                    <div class="problem-item bg-white p-6 shadow-sm text-left cursor-pointer flex flex-col justify-between">
+                        <div class="problem-header flex flex-col items-start justify-between flex-grow">
+                            <span class="text-indigo-600 w-8 h-8 icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hammer-off">
+                                    <path d="m10 12 8-8"></path>
+                                    <path d="m14.5 10.5 2.5 2.5"></path>
+                                    <path d="m17 17 4 4"></path>
+                                    <path d="m19 15 2 2"></path>
+                                    <path d="m2 2 20 20"></path>
+                                    <path d="m5 5 4 4"></path>
+                                    <path d="M14 10 9 5l-4 4v4l9 9 4-4Z"></path>
+                                </svg>
+                            </span>
+                            <h3 class="font-bold text-lg text-stone-800">AI That Doesn't Finish the Job</h3>
+                            <span class="arrow-icon text-xl text-stone-600">▼</span>
+                        </div>
+                        <div class="accordion-content pt-4">
+                            <p class="text-sm text-stone-700">AI can generate content, but it often stops short of completing the actual task. You're stuck fixing errors, verifying outputs, or manually completing steps that the AI should have handled. It feels like you're babysitting the AI instead of being supported by it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Features Section - Consolidated and Simplified -->
+        <section id="features" class="bg-black text-white w-full section-padding scroll-mt-20">
+            <div class="max-w-4xl mx-auto px-6"> <!-- Inner container for content width -->
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">AI That Doesn’t Just Talk — It Acts</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-300">OrchestrateOS is built on powerful innovations that make your AI reliable, smart, and easy to use.</p>
+                </div>
+                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Semantic Execution -->
+                    <div class="bg-black p-6 rounded-lg" style="box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);">
+                        <h3 class="font-bold text-xl mb-3 flex items-center">
+                            <span class="text-indigo-400 mr-3 w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                </svg>
+                            </span>
+                            Semantic Execution
+                        </h3>
+                        <p class="text-white">
+                            Transforms natural language into precise, executable system behaviors, turning your intent into direct action without guesswork.
+                        </p>
+                    </div>
+                    <!-- Multistep Task Execution -->
+                    <div class="bg-black p-6 rounded-lg" style="box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);">
+                        <h3 class="font-bold text-xl mb-3 flex items-center">
+                            <span class="text-indigo-400 mr-3 w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-workflow">
+                                    <rect width="8" height="8" x="3" y="3" rx="2"></rect>
+                                    <path d="M7 11v4a2 2 0 0 0 2 2h4"></path>
+                                    <rect width="8" height="8" x="13" y="13" rx="2"></rect>
+                                    <path d="M17 11V7a2 2 0 0 0-2-2h-4"></path>
+                                </svg>
+                            </span>
+                            Multistep Task Execution
+                        </h3>
+                        <p class="text-white">
+                            Automates complex workflows by executing predefined sequences of tool actions reliably and without errors, completing tasks from start to finish.
+                        </p>
+                    </div>
+                    <!-- Semantic Memory (with PhraseRank) -->
+                    <div class="bg-black p-6 rounded-lg" style="box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);">
+                        <h3 class="font-bold text-xl mb-3 flex items-center">
+                            <span class="text-indigo-400 mr-3 w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brain">
+                                    <path d="M12 15c.34 0 .67-.02 1-.06 1.66.42 3.4-.46 4.19-2.29 1.13-2.68-.4-6.07-2.6-7.81-.76-.64-1.6-1.03-2.5-1.19-.79-.15-1.58-.17-2.36-.13-.95.05-1.9.23-2.8.52-2.26.77-4.5 2.88-4.5 5.58C3.4 12.05 5.5 14 7.2 14h.8"></path>
+                                    <path d="M13 15c-.34 0-.67-.02-1-.06-1.66.42-3.4-.46-4.19-2.29-1.13-2.68.4-6.07 2.6-7.81.76-.64 1.6-1.03 2.5-1.19.79-.15 1.58-.17 2.36-.13.95.05-1.9.23-2.8.52-2.26.77 4.5 2.88 4.5 5.58C20.6 12.05 18.5 14 16.8 14h-.8"></path>
+                                    <path d="M12 15c-.34 0-.67-.02-1-.06-1.66.42-3.4-.46-4.19-2.29-1.13-2.68.4-6.07 2.6-7.81-.76-.64-1.6-1.03-2.5-1.19-.79-.15-1.58-.17-2.36-.13-.95.05-1.9.23-2.8.52-2.26.77 4.5 2.88 4.5 5.58C3.4 12.05 5.5 14 7.2 14h.8"></path>
+                                    <path d="M12 15c-.34 0-.67-.02-1-.06-1.66.42-3.4-.46-4.19-2.29-1.13-2.68.4-6.07 2.6-7.81-.76-.64-1.6-1.03-2.5-1.19-.79-.15-1.58-.17-2.36-.13-.95.05-1.9.23-2.8.52-2.26.77 4.5 2.88 4.5 5.58C3.4 12.05 5.5 14 7.2 14h.8"></path>
+                                </svg>
+                            </span>
+                            Semantic Memory (with PhraseRank)
+                        </h3>
+                        <p class="text-white">
+                            OrchestrateOS actively learns and prioritizes key concepts from your interactions, ensuring the AI remembers what truly matters across all your work.
+                        </p>
+                    </div>
+                    <!-- Real Time Model Performance Metrics -->
+                    <div class="bg-black p-6 rounded-lg" style="box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);">
+                        <h3 class="font-bold text-xl mb-3 flex items-center">
+                            <span class="text-indigo-400 mr-3 w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                </svg>
+                            </span>
+                            Real Time Model Performance Metrics
+                        </h3>
+                        <p class="text-white">
+                            Continuously monitors AI reliability, acting as a "health monitor" to prevent performance degradation and ensure consistent outcomes.
+                        </p>
+                    </div>
+                    <!-- Hybrid Local-Cloud Architecture -->
+                    <div class="bg-black p-6 rounded-lg" style="box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);">
+                        <h3 class="font-bold text-xl mb-3 flex items-center">
+                            <span class="text-indigo-400 mr-3 w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud">
+                                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                                </svg>
+                            </span>
+                            Hybrid Local-Cloud Architecture
+                        </h3>
+                        <p class="text-white">
+                            Combines cloud-based AI with local tool execution, ensuring data privacy, faster performance, and user ownership of all data.
+                        </p>
+                    </div>
+                    <!-- Modularity & Behavioral Contracts -->
+                    <div class="bg-black p-6 rounded-lg" style="box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);">
+                        <h3 class="font-bold text-xl mb-3 flex items-center">
+                            <span class="text-indigo-400 mr-3 w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-blocks">
+                                    <rect width="7" height="7" x="14" y="3" rx="1"></rect>
+                                    <path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"></path>
+                                    <rect width="7" height="7" x="3" y="3" rx="1"></rect>
+                                </svg>
+                            </span>
+                            Modularity & Behavioral Contracts
+                        </h3>
+                        <p class="text-white">
+                            Expand system capabilities with new tools and ensure predictable AI actions through clear, predefined rules and schemas, making behavior structural.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Explorer Section - How OrchestrateOS Transforms Language into Action -->
+        <section id="explorer" class="bg-stone-100 w-full section-padding scroll-mt-20">
+            <div class="max-w-4xl mx-auto px-6"> <!-- Inner container for content width -->
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">How OrchestrateOS Transforms Language into Action</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">Explore the core flow of semantic execution, where your words become system behavior.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center mb-8">
+                    <div class="architecture-component p-6 bg-indigo-50 rounded-lg cursor-pointer hover:shadow-md transition-shadow" data-component="human">
+                        <span class="text-indigo-600 w-8 h-8 mx-auto mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square-text">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                <line x1="9" x2="15" y1="10" y2="10"></line>
+                                <line x1="9" x2="13" y1="14" y2="14"></line>
+                            </svg>
+                        </span>
+                        <h4 class="font-bold text-lg mt-2">Your Intent</h4>
+                        <p class="text-sm text-stone-600">The starting point: your natural language command.</p>
+                    </div>
+                    <div class="architecture-component p-6 bg-indigo-50 rounded-lg cursor-pointer hover:shadow-md transition-shadow" data-component="model">
+                        <span class="text-indigo-600 w-8 h-8 mx-auto mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brain">
+                                <path d="M12 15c.34 0 .67-.02 1-.06 1.66.42 3.4-.46 4.19-2.29 1.13-2.68-.4-6.07-2.6-7.81-.76-.64-1.6-1.03-2.5-1.19-.79-.15-1.58-.17-2.36-.13-.95.05-1.9.23-2.8.52-2.26.77-4.5 2.88-4.5 5.58C3.4 12.05 5.5 14 7.2 14h.8"></path>
+                                <path d="M13 15c-.34 0-.67-.02-1-.06-1.66.42-3.4-.46-4.19-2.29-1.13-2.68.4-6.07 2.6-7.81.76-.64 1.6-1.03 2.5-1.19.79-.15 1.58-.17 2.36-.13.95.05 1.9.23-2.8.52-2.26.77 4.5 2.88 4.5 5.58C20.6 12.05 18.5 14 16.8 14h-.8"></path>
+                                <path d="M12 15c-.34 0-.67-.02-1-.06-1.66.42-3.4-.46-4.19-2.29-1.13-2.68.4-6.07 2.6-7.81-.76-.64-1.6-1.03-2.5-1.19-.79-.15-1.58-.17-2.36-.13-.95.05-1.9.23-2.8.52-2.26.77 4.5 2.88 4.5 5.58C3.4 12.05 5.5 14 7.2 14h.8"></path>
+                                <path d="M12 15c-.34 0-.67-.02-1-.06-1.66.42-3.4-.46-4.19-2.29-1.13-2.68.4-6.07 2.6-7.81-.76-.64-1.6-1.03-2.5-1.19-.79-.15-1.58-.17-2.36-.13-.95.05-1.9.23-2.8.52-2.26.77 4.5 2.88 4.5 5.58C3.4 12.05 5.5 14 7.2 14h.8"></path>
+                            </svg>
+                        </span>
+                        <h4 class="font-bold text-lg mt-2">Intent Interpretation</h4>
+                        <p class="text-sm text-stone-600">The AI translates your words into structured payloads.</p>
+                    </div>
+                    <div class="architecture-component p-6 bg-indigo-50 rounded-lg cursor-pointer hover:shadow-md transition-shadow" data-component="structure">
+                        <span class="text-indigo-600 w-8 h-8 mx-auto mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circuit-board">
+                                <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                                <path d="M11 9h4a2 2 0 0 0 2-2V3"></path>
+                                <circle cx="9" cy="9" r="2"></circle>
+                                <path d="M7 15h4a2 2 0 0 1 2 2v4"></path>
+                                <circle cx="15" cy="15" r="2"></circle>
+                                <path d="M17 9h-4a2 2 0 0 1-2-2V3"></path>
+                                <circle cx="15" cy="9" r="2"></circle>
+                                <path d="M13 15h-4a2 2 0 0 0-2 2v4"></path>
+                                <circle cx="9" cy="15" r="2"></circle>
+                            </svg>
+                        </span>
+                        <h4 class="font-bold text-lg mt-2">Structured Memory & Contracts</h4>
+                        <p class="text-sm text-stone-600">Predefined rules and knowledge guide the AI's actions.</p>
+                    </div>
+                    <div class="architecture-component p-6 bg-indigo-50 rounded-lg cursor-pointer hover:shadow-md transition-shadow" data-component="tools">
+                        <span class="text-indigo-600 w-8 h-8 mx-auto mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cog">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.4 1.4 0 0 0 .3 2.5l.7 1.3c.2.2.1.6-.2.8l-1.4 1c-.3.2-.6.2-.8 0l-1.3-.7a1.4 1.4 0 0 0-2.5.3l-1.3.7c-.2.2-.6.1-.8-.2l-1-1.4c-.2-.3-.2-.6 0-.8l.7-1.3a1.4 1.4 0 0 0-.3-2.5l-.7-1.3c-.2-.2-.1-.6.2-.8l1.4-1c.3-.2.6-.2.8 0l1.3.7a1.4 1.4 0 0 0 2.5-.3l.7-1.3c.2-.2.1-.6-.2-.8l-1.4-1c-.3-.2-.6-.2-.8 0l-1.3.7a1.4 1.4 0 0 0-2.5-.3l-.7-1.3c-.2-.2-.1-.6.2-.8l1.4-1c.3-.2.6-.2.8 0l1.3.7a1.4 1.4 0 0 0 2.5-.3"></path>
+                            </svg>
+                        </span>
+                        <h4 class="font-bold text-lg mt-2">Deterministic Execution</h4>
+                        <p class="text-sm text-stone-600">Tools perform precise actions based on the structured intent.</p>
+                    </div>
+                </div>
+
+                <!-- Centralized description box -->
+                <div id="architecture-info" class="component-description-box hidden">
+                    <h4 id="architecture-title" class="font-bold text-lg text-indigo-700"></h4>
+                    <p id="architecture-description" class="text-stone-700 mt-1"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implications Section - Simplified Content -->
+        <section id="implications" class="bg-black text-white w-full section-padding scroll-mt-20">
+            <div class="max-w-4xl mx-auto px-6"> <!-- Inner container for content width -->
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-white mb-4">Ready to Experience the Future of AI?</h3>
+                    <a href="#" class="inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-indigo-700 transition-colors duration-300">
+                        Learn More & Get Started
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
     
-        
-    <section id='implications' class='bg-black text-white py-20'>
-        <div class='max-w-4xl mx-auto text-center'>
-            <h3 class='text-2xl font-bold mb-4'>Ready to take control of your day?</h3>
-            <a href='#' class='bg-indigo-600 px-6 py-3 text-white font-bold rounded hover:bg-indigo-700'>Try TodoFlow Free</a>
+    <footer class="bg-stone-800 text-stone-300 py-8 w-full">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <!-- Removed copyright text as requested -->
         </div>
-    </section>
-    
-    </body>
-    </html>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Data Store - Removed trajectoryData and traceData as those sections are removed
+            const architectureData = {
+                human: { title: 'Your Intent: The Starting Point', description: 'You are in charge. OrchestrateOS responds to your natural language commands, serving as the initial trigger for all system behavior. Your ideas and instructions drive the entire process.' },
+                model: { title: 'Intent Interpretation: The AI Brain', description: 'The AI acts as a semantic interpreter, translating your natural language intent into structured, actionable payloads. It does not reason or improvises; it precisely routes your commands to the correct system components based on predefined rules.' },
+                structure: { title: 'Structured Memory & Contracts: The System\'s Rules', description: 'OrchestrateOS uses persistent, structured memory (like JSON files and behavioral contracts) to guide the AI. This memory provides explicit instructions, tool schemas, and operational logic, ensuring predictable and reliable execution without guesswork.' },
+                tools: { title: 'Deterministic Execution: Actions Without Clicks', description: 'The system executes actions through specialized tools, triggered directly by the AI\'s structured payloads. This eliminates manual clicks and navigation, allowing the system to perform complex tasks deterministically and efficiently.' }
+            };
+            
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Removed Prediction Trajectory Chart initialization as the section is removed
+
+            // Architecture Explorer
+            const archComponents = document.querySelectorAll('.architecture-component');
+            const archInfoBox = document.getElementById('architecture-info');
+            const archTitle = document.getElementById('architecture-title');
+            const archDescription = document.getElementById('architecture-description');
+
+            archComponents.forEach(component => {
+                component.addEventListener('click', () => {
+                    const componentKey = component.dataset.component;
+                    const data = architectureData[componentKey];
+                    
+                    // Update the centralized info box
+                    archTitle.textContent = data.title;
+                    archDescription.textContent = data.description;
+                    archInfoBox.classList.add('show'); // Show with transition
+                    archInfoBox.classList.remove('hidden'); // Ensure it's not hidden
+
+                    // Remove active class from all components and add to the clicked one
+                    archComponents.forEach(c => c.classList.remove('active'));
+                    component.classList.add('active');
+                });
+            });
+
+            // Removed Execution Trace Viewer as the section is removed
+
+            // Problem Section Accordion-like behavior within columns
+            const problemItems = document.querySelectorAll('.problem-item');
+            problemItems.forEach(item => {
+                const header = item.querySelector('.problem-header');
+                const content = item.querySelector('.accordion-content');
+                const arrowIcon = header.querySelector('.arrow-icon');
+                
+                // Initially hide content
+                content.style.maxHeight = '0px';
+
+                header.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                    if (isOpen) {
+                        content.style.maxHeight = '0px';
+                        header.classList.remove('active');
+                    } else {
+                        problemItems.forEach(otherItem => {
+                            const otherContent = otherItem.querySelector('.accordion-content');
+                            const otherHeader = otherItem.querySelector('.problem-header');
+                            if (otherContent !== content && otherContent.style.maxHeight !== '0px') {
+                                otherContent.style.maxHeight = '0px';
+                                otherHeader.classList.remove('active');
+                            }
+                        });
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        header.classList.add('active');
+                    }
+                });
+            });
+
+
+            // Implications Section Accordion
+            const accordionItems = document.querySelectorAll('#implications .accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = header.querySelector('span:last-child');
+                header.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                    if (isOpen) {
+                        content.style.maxHeight = '0px';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        const parentContainer = item.closest('.space-y-4');
+                        if (parentContainer) {
+                            parentContainer.querySelectorAll('.accordion-content').forEach(otherContent => {
+                                if (otherContent !== content && otherContent.style.maxHeight !== '0px') {
+                                    otherContent.style.maxHeight = '0px';
+                                    otherContent.previousElementSibling.querySelector('span:last-child').style.transform = 'rotate(0deg)';
+                                }
+                            });
+                        }
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
+
     
