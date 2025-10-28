@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OrchestrateOS - Do More with AI</title>
+    <title>OrchestrateOS - Your AI Operating System for Work</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for Inter -->
@@ -21,6 +21,21 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -29,10 +44,13 @@
     <section class="min-h-screen flex items-center justify-center p-8 text-center bg-black rounded-b-[50px]">
         <div class="max-w-4xl mx-auto">
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-4 text-gray-100">
-                Do in ONE sentence what previously took a DOZEN clicks
+                OrchestrateOS: Your AI Operating System for Work
             </h1>
             <p class="text-lg sm:text-xl lg:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto">
-                OrchestrateOS lets you use tools and run tasks without clicking buttons, opening tabs, or switching apps.
+                Stop chatting with AI. Start orchestrating it.
+            </p>
+            <p class="text-md sm:text-lg text-gray-500 mb-8 max-w-3xl mx-auto">
+                OrchestrateOS is not a chatbot—it's a deterministic operating system that transforms natural language into reliable, repeatable workflows. While others give you conversation, we give you execution.
             </p>
             <button class="bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:from-sky-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105">
                 Learn More
@@ -40,19 +58,35 @@
         </div>
     </section>
 
-    <!-- Problem Blocks Section (White Background) -->
+    <!-- Video Section -->
+    <section class="py-20 px-8 bg-gray-900">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-gray-100">See OrchestrateOS in Action</h2>
+            <div class="video-container rounded-xl overflow-hidden shadow-2xl">
+                <iframe
+                    src="https://www.youtube.com/embed/Q2j4GV2HSns"
+                    title="OrchestrateOS Demo"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Blocks Section -->
     <section class="py-20 px-8 bg-white text-gray-800">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16">The Problem With AI Today</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Problem Block 1 -->
                 <div class="bg-gray-100 p-8 rounded-xl shadow-lg border border-gray-200">
                     <div class="flex items-center justify-center w-12 h-12 bg-red-500 rounded-full mb-4">
                         <span class="text-2xl">🧠</span>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-black">AI forgets everything</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-black">AI Forgets Everything</h3>
                     <p class="text-gray-600">
-                        AI forgets what you said. You have to repeat yourself and retype instructions every time. It doesn't learn from what you do.
+                        Every conversation starts from scratch. You repeat context, retype instructions, and rebuild workflows constantly. AI tools have no memory, no persistence, no understanding of your work.
                     </p>
                 </div>
                 <!-- Problem Block 2 -->
@@ -60,9 +94,9 @@
                     <div class="flex items-center justify-center w-12 h-12 bg-yellow-500 rounded-full mb-4">
                         <span class="text-2xl">🔗</span>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-black">Tools don't talk to each other</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-black">Tools Don't Talk to Each Other</h3>
                     <p class="text-gray-600">
-                        Your apps never share data. You end up copying information by hand, moving files yourself, and wasting time connecting the dots that your tools should connect for you.
+                        Your apps live in silos. You manually copy data between Notion, Airtable, and Gmail. You download files just to upload them elsewhere. Your "productivity stack" creates more work than it eliminates.
                     </p>
                 </div>
                 <!-- Problem Block 3 -->
@@ -72,81 +106,171 @@
                     </div>
                     <h3 class="text-xl font-semibold mb-2 text-black">AI Only Gives You Puzzle Pieces</h3>
                     <p class="text-gray-600">
-                        Whether it's code, text, or visual assets, AI only gives you pieces. You end up copying, pasting, and assembling everything yourself to get a finished product. It never completes the task for you.
+                        ChatGPT writes code snippets. Claude drafts email templates. DALL-E generates images. But none of them finish the job. You're stuck assembling, debugging, and deploying everything yourself.
+                    </p>
+                </div>
+                <!-- Problem Block 4 -->
+                <div class="bg-gray-100 p-8 rounded-xl shadow-lg border border-gray-200">
+                    <div class="flex items-center justify-center w-12 h-12 bg-purple-500 rounded-full mb-4">
+                        <span class="text-2xl">💬</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-black">Conversation ≠ Execution</h3>
+                    <p class="text-gray-600">
+                        You've spent hours prompting, refining, and re-prompting AI to get what you need. The output looks good until you try to use it—then you discover it's incomplete, incompatible, or just plain broken.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Feature Blocks Section (Black Background with Borders and Shadows) -->
+    <!-- Introducing OrchestrateOS Section -->
+    <section class="py-20 px-8 bg-black">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-gray-100">Introducing OrchestrateOS</h2>
+            <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto">The Dual-Agent Architecture for Real Work</p>
+            <p class="text-lg text-gray-400 mb-12 max-w-4xl mx-auto">
+                OrchestrateOS isn't a single AI—it's two specialized agents working in perfect coordination:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-gray-900 p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-2xl font-bold mb-4 text-sky-400">GPT-4 (Browser)</h3>
+                    <p class="text-gray-400">Your intent router — Understands what you want, routes tasks to the right tools, and manages high-level strategy.</p>
+                </div>
+                <div class="bg-gray-900 p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-400">Claude Code (CLI)</h3>
+                    <p class="text-gray-400">Your autonomous executor — Reads files, writes code, calls APIs, processes data, and delivers finished results—all without supervision.</p>
+                </div>
+            </div>
+            <p class="text-lg text-gray-400 mt-12 max-w-4xl mx-auto">
+                Together, they form a deterministic operating system where your words become reliable, repeatable actions.
+            </p>
+        </div>
+    </section>
+
+    <!-- Why Two AIs Section -->
+    <section class="py-20 px-8 bg-white text-gray-800">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16">Why Two AIs Are Better Than One</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-black">🎯 Specialization Over Generalization</h3>
+                    <p class="text-gray-600">
+                        Instead of one AI trying (and failing) to do everything, we split responsibilities: GPT understands intent and routes requests. Claude executes with precision and completes tasks. Neither agent wastes time on the other's job.
+                    </p>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-black">📋 File-Based Coordination</h3>
+                    <p class="text-gray-600">
+                        No fragile API calls. No conversation history limits. Just a simple task queue: GPT writes tasks → Claude reads and executes → Results saved → GPT reviews and continues. Zero conversation overhead, unlimited context, perfect reliability.
+                    </p>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-black">⚡ Zero Marginal Cost</h3>
+                    <p class="text-gray-600">
+                        Both agents run on subscriptions, not API calls. Process 1 task or 1,000 tasks—the cost is the same: $0 per task. While others worry about token limits, we execute unlimited workflows for free.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real-World Use Cases Section -->
+    <section class="py-20 px-8 bg-gray-900">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 text-gray-100">What OrchestrateOS Actually Does</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-black p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-sky-400">Email Triage & Inbox Automation</h3>
+                    <p class="text-gray-400 mb-3">"Archive all newsletters, star emails from investors, draft replies to client requests."</p>
+                    <p class="text-gray-500 text-sm">→ OrchestrateOS reads your inbox, categorizes messages, generates contextual responses, and updates your task list—all autonomously.</p>
+                </div>
+                <div class="bg-black p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-sky-400">Content Production Pipeline</h3>
+                    <p class="text-gray-400 mb-3">"Process 50 podcast transcripts, extract frameworks, generate titles and summaries, publish to the index."</p>
+                    <p class="text-gray-500 text-sm">→ While you're at the gym, OrchestrateOS chunks audio, extracts insights, formats metadata, and updates your content database.</p>
+                </div>
+                <div class="bg-black p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-sky-400">Tool Building on Demand</h3>
+                    <p class="text-gray-400 mb-3">"Build a weekly review tool that summarizes docs created, tasks completed, and goals for next week."</p>
+                    <p class="text-gray-500 text-sm">→ OrchestrateOS generates the spec, writes the code, registers the tool, tests it, and hands you a working system—in 10 minutes.</p>
+                </div>
+                <div class="bg-black p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-sky-400">API Automation</h3>
+                    <p class="text-gray-400 mb-3">"Pull all Airtable contacts, sync to ConvertKit, tag by engagement level, trigger welcome sequence."</p>
+                    <p class="text-gray-500 text-sm">→ OrchestrateOS chains APIs, handles authentication, validates data, and executes the full workflow without a single line of code from you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Blocks Section -->
     <section class="py-20 px-8 bg-black text-gray-800">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-100">The OrchestrateOS Difference</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-100">Core Capabilities</h2>
             <p class="text-lg sm:text-xl text-center text-gray-400 mb-16 max-w-3xl mx-auto">
-                OrchestrateOS doesn't just help you work—it does the work. While other AI tools give you suggestions, OrchestrateOS executes tasks, manages workflows, and delivers finished outcomes without supervision.
+                OrchestrateOS doesn't just help you work—it does the work.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
                 <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-100">🧠 AI That Actually Remembers</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-100">🧠 Persistent Memory Across Everything</h3>
                     <p class="text-gray-400">
-                        OrchestrateOS maintains context across every conversation, project, and tool. It knows what you worked on last week, what files matter, and how you prefer things done. You never repeat yourself because the system remembers everything.
+                        OrchestrateOS maintains context across every conversation, all your tools and files, past workflows and preferences, and real-time system state. You never repeat yourself. The system remembers everything.
                     </p>
                 </div>
                 <!-- Feature 2 -->
                 <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
                     <h3 class="text-xl font-semibold mb-2 text-gray-100">⚙️ Built for Reliability, Not Conversation</h3>
                     <p class="text-gray-400">
-                        Most AI systems break when asked to do real work. OrchestrateOS is engineered for execution—it validates every action, catches errors before they happen, and auto-corrects mistakes. If a tool fails, the system reconstructs what went wrong and fixes it automatically.
+                        Schema validation on every tool call. Auto-reconstruction when parameters are malformed. Thread scoring penalizes AI mistakes. Execution logs track every action. If it fails twice, the system blocks it.
                     </p>
                 </div>
                 <!-- Feature 3 -->
                 <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
                     <h3 class="text-xl font-semibold mb-2 text-gray-100">🔧 Your Tools Become a Unified System</h3>
                     <p class="text-gray-400">
-                        Every tool you add instantly works with everything else. Need to pull data from Notion, process it with Python, and send results via email? Done. OrchestrateOS handles the entire chain without configuration, API wrangling, or manual file transfers.
+                        Connect once, use forever. Outline, Airtable, ConvertKit, Nylas, Canvas, Readwise, podcast manager—every tool talks to every other tool. No API wrangling, no manual integration, no configuration hell.
                     </p>
                 </div>
                 <!-- Feature 4 -->
                 <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
                     <h3 class="text-xl font-semibold mb-2 text-gray-100">🪄 Plain English Commands Run Complex Workflows</h3>
                     <p class="text-gray-400">
-                        Say "prep my podcast transcript, extract the midroll ad, generate a title and summary, then publish to the index." OrchestrateOS parses your files, runs the processing pipeline, waits for your approval, and publishes—all from one sentence.
+                        "Prep my podcast transcript, extract the midroll ad placement, generate a title and summary following the style guide, update the episode index, and publish." All from one sentence.
                     </p>
                 </div>
                 <!-- Feature 5 -->
                 <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-100">⚡ Outcomes, Not Drafts</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-100">⚡ Finished Outcomes, Not Draft Suggestions</h3>
                     <p class="text-gray-400">
-                        Tell OrchestrateOS to "build an email marketing system" and it doesn't give you code to copy-paste. It writes the tool, registers it with the system, tests it, and hands you a working email broadcast function. You get finished products, not homework.
+                        Others give you code snippets to debug, email drafts to edit, workflow ideas to implement. OrchestrateOS delivers working tools registered in the system, sent emails logged in your outbox, executed workflows with completion logs.
                     </p>
                 </div>
                 <!-- Feature 6 -->
                 <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
                     <h3 class="text-xl font-semibold mb-2 text-gray-100">🛡️ Self-Monitoring and Self-Healing</h3>
                     <p class="text-gray-400">
-                        The execution hub tracks every tool call, scores AI behavior, and penalizes mistakes. If AI makes the same error twice, the system blocks it. If a payload is malformed, OrchestrateOS reconstructs it automatically. The system makes AI reliable.
+                        The execution hub tracks success rate by tool and action, thread health scoring AI behavior, error patterns identifying failures, and auto-reconstruction fixing malformed payloads. AI reliability isn't magic—it's engineering.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- System Flow Section (White Background) -->
+    <!-- System Flow Section -->
     <section class="py-20 px-8 bg-white text-gray-800">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16">How OrchestrateOS Transforms Language into Action</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16">How It Works: The 3-Step Flow</h2>
             <div class="flex flex-col md:flex-row items-start justify-center space-y-12 md:space-y-0 md:space-x-12">
                 <!-- Your Intent -->
                 <div class="flex flex-col items-start text-left">
                     <span class="text-5xl mb-4">💬</span>
-                    <h3 class="text-xl font-semibold mb-2 text-black">Your Intent</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-black">1. Your Intent (Natural Language)</h3>
                     <p class="text-gray-600 max-w-xs">
-                        You describe what you want in plain English. OrchestrateOS interprets your words and determines which tools, files, and workflows are needed.
+                        You describe what you want in plain English—via browser, email, or voice. OrchestrateOS interprets your words and maps them to the right tools, files, and workflows.
                     </p>
                 </div>
-                
+
                 <!-- Arrow Icon -->
                 <div class="text-5xl text-gray-700 md:block hidden">→</div>
                 <div class="text-5xl text-gray-700 md:hidden block transform rotate-90">→</div>
@@ -154,39 +278,106 @@
                 <!-- Intent Interpretation -->
                 <div class="flex flex-col items-start text-left">
                     <span class="text-5xl mb-4">🤖</span>
-                    <h3 class="text-xl font-semibold mb-2 text-black">Intelligent Orchestration</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-black">2. Intelligent Routing (GPT-4)</h3>
                     <p class="text-gray-600 max-w-xs">
-                        The system doesn't guess—it matches your request to the exact tool schema, validates parameters, and chains multiple actions together automatically.
+                        GPT-4 doesn't execute—it routes. Determines which tools to call, assigns tasks to Claude Code, manages context and approvals. The router is fast, smart, and focused only on coordination.
                     </p>
                 </div>
-                
+
                 <!-- Arrow Icon -->
                 <div class="text-5xl text-gray-700 md:block hidden">→</div>
                 <div class="text-5xl text-gray-700 md:hidden block transform rotate-90">→</div>
-                
+
                 <!-- Automated Execution -->
                 <div class="flex flex-col items-start text-left">
                     <span class="text-5xl mb-4">⚙️</span>
-                    <h3 class="text-xl font-semibold mb-2 text-black">Automated Execution</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-black">3. Autonomous Execution (Claude Code)</h3>
                     <p class="text-gray-600 max-w-xs">
-                        OrchestrateOS runs the entire workflow: reads files, processes data, calls APIs, generates outputs, and delivers the final result. You supervise only when approval is needed.
+                        Claude Code reads the task queue and executes: reads files and databases, calls APIs and processes data, writes code and tests tools, generates outputs and logs results. You supervise only when approval is needed.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Real Results Section -->
+    <section class="py-20 px-8 bg-gray-900">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 text-gray-100">Real Results</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-black p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-2xl font-bold mb-3 text-emerald-400">10-Minute Feature Cycles</h3>
+                    <p class="text-gray-400 mb-2">Traditional dev: 2-3 months from idea to deployment</p>
+                    <p class="text-gray-400">OrchestrateOS: 10 minutes from request to working feature</p>
+                </div>
+                <div class="bg-black p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-2xl font-bold mb-3 text-emerald-400">Bathroom-Break Productivity</h3>
+                    <p class="text-gray-400 mb-2">Real example: Process 50 podcast episodes for metadata extraction while away from desk</p>
+                    <p class="text-gray-400">Time saved: 20 hours of manual work → 15 minutes of autonomous execution</p>
+                </div>
+                <div class="bg-black p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-2xl font-bold mb-3 text-emerald-400">Zero Marginal Cost Business Model</h3>
+                    <p class="text-gray-400 mb-2">Subscription AI: $20/month regardless of usage</p>
+                    <p class="text-gray-400">Per-task cost: $0 for 1 task, $0 for 1,000 tasks</p>
+                </div>
+                <div class="bg-black p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-2xl font-bold mb-3 text-emerald-400">Tool Sprawl Eliminated</h3>
+                    <p class="text-gray-400 mb-2">Before: 20+ SaaS subscriptions, manual data transfer, constant context switching</p>
+                    <p class="text-gray-400">After: Single orchestration layer, unified interface, autonomous coordination</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who It's For Section -->
+    <section class="py-20 px-8 bg-black">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 text-gray-100">Who It's For</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3 text-sky-400">Knowledge Workers</h3>
+                    <p class="text-gray-400">Automate research, note-taking, content creation, and publishing. Turn 100 podcast transcripts into a searchable knowledge vault in an hour.</p>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3 text-sky-400">Creators & Producers</h3>
+                    <p class="text-gray-400">Process audio, generate metadata, publish episodes, and manage distribution—all autonomously. Spend time creating, not administrating.</p>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3 text-sky-400">Developers & Builders</h3>
+                    <p class="text-gray-400">Build tools, test features, and deploy systems in minutes instead of weeks. Focus on product, not infrastructure.</p>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3 text-sky-400">Executives & Operators</h3>
+                    <p class="text-gray-400">Triage inbox, manage CRM, automate outreach, and track metrics—without a team. Operate like a 10-person company with zero headcount.</p>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3 text-sky-400">Consultants & Freelancers</h3>
+                    <p class="text-gray-400">Onboard clients, process deliverables, generate reports, and manage communications—at scale. 10x your capacity without burning out.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
-    <section class="py-20 px-8 text-center bg-black rounded-t-[50px]">
+    <section class="py-20 px-8 text-center bg-white rounded-t-[50px]">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-gray-100">
-                Ready to Experience AI That Actually Works?
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-black">
+                Ready to Experience AI That Actually Finishes the Job?
             </h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Join the Private Beta. We're onboarding early users who want to eliminate tool sprawl, need autonomous execution (not suggestions), value reliability over conversation, and understand that real AI executes—not chats.
+            </p>
             <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" target="_blank" rel="noopener noreferrer">
                 <button class="bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:from-sky-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105">
                     Join The Private Beta
                 </button>
             </a>
+            <p class="text-sm text-gray-500 mt-8">
+                OrchestrateOS: Where Your Words Become Workflows
+            </p>
+            <p class="text-xs text-gray-400 mt-2">
+                Built by humans who got tired of babysitting AI.
+            </p>
         </div>
     </section>
 
