@@ -4,382 +4,1278 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OrchestrateOS - Your AI Operating System for Work</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #f3f4f6;
-        }
-        .text-gradient {
-            background: linear-gradient(90deg, #38bdf8, #2dd4bf);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            max-width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            padding-top: 100px;
         }
-        .video-container iframe {
+
+        /* Promo Banner */
+        .promo-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            z-index: 1001;
+            font-weight: 500;
+        }
+
+        .promo-banner a {
+            color: #fff;
+            text-decoration: underline;
+            margin-left: 10px;
+        }
+
+        /* Sticky Navigation */
+        .sticky-nav {
+            position: fixed;
+            top: 44px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 15px 40px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .nav-cta {
+            background: #fff;
+            color: #000 !important;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            opacity: 1 !important;
+            background: #f0f0f0;
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #hero-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content .tagline {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #888;
+        }
+
+        .hero-content .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 400;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            color: #aaa;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 48px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #000;
+            background: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Section Styles - Full Width */
+        section {
+            position: relative;
+            padding: 80px 40px;
+            width: 100%;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Alternating Black/White Backgrounds */
+        #hero {
+            background: #000;
+        }
+
+        #problems {
+            background: #fff;
+            color: #000;
+        }
+
+        #problems h2,
+        #problems h3 {
+            color: #000;
+        }
+
+        #problems p {
+            color: #333;
+        }
+
+        #dual-agent {
+            background: #000;
+            color: #fff;
+        }
+
+        #use-cases {
+            background: #fff;
+            color: #000;
+        }
+
+        #use-cases h2,
+        #use-cases h3 {
+            color: #000;
+        }
+
+        #use-cases .result {
+            color: #333 !important;
+        }
+
+        #difference {
+            background: #000;
+            color: #fff;
+        }
+
+        #capabilities {
+            background: #fff;
+            color: #000;
+        }
+
+        #capabilities h2,
+        #capabilities h3 {
+            color: #000;
+        }
+
+        #capabilities p {
+            color: #333;
+        }
+
+        #results {
+            background: #000;
+            color: #fff;
+        }
+
+        #cta {
+            background: #fff;
+            color: #000;
+        }
+
+        #cta h2 {
+            color: #000;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+        }
+
+        #cta p {
+            color: #333;
+        }
+
+        #cta .cta-button {
+            background: #000;
+            color: #fff;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .problem-card {
+            padding: 30px 25px;
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            background: rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .problem-card p {
+            color: #aaa;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Conductor Visualization */
+        .conductor-container {
+            margin-top: 50px;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .conductor-svg {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .conductor-zone {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .conductor-zone:hover {
+            opacity: 0.8;
+        }
+
+        .baton {
+            animation: conductorWave 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        @keyframes conductorWave {
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        .orchestra-members {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .orchestra-member {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .orchestra-member:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .orchestra-member .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .orchestra-member h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .orchestra-member .role {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .orchestra-member p {
+            font-size: 0.95rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* Hover Modal Tooltip */
+        .sphere-tooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px 30px;
+            max-width: 350px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .sphere-tooltip.visible {
+            opacity: 1;
+        }
+
+        .sphere-tooltip h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .sphere-tooltip .role {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .sphere-tooltip p {
+            color: #aaa;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Use Cases - Compact Hover Cards */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .use-case {
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .use-case:hover {
+            background: rgba(0, 0, 0, 0.06);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .use-case-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .use-case-brief {
+            transition: opacity 0.3s ease;
+        }
+
+        .use-case-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            color: #fff;
+            padding: 30px;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .use-case:hover .use-case-details {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .use-case:hover .use-case-brief {
+            opacity: 0;
+        }
+
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            padding: 35px 30px;
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .feature-card p {
+            color: #aaa;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-card .label {
+            font-size: 1.2rem;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        #cta {
+            text-align: center;
+            padding: 80px 40px;
+        }
+
+        #cta h2 {
+            margin-bottom: 2rem;
+        }
+
+        #cta p {
+            font-size: 1.3rem;
+            color: #aaa;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        /* Data Table Styles */
+        table {
+            color: #fff;
+        }
+
+        table th {
+            color: #fff;
+        }
+
+        table td {
+            color: #ccc;
+        }
+
+        /* Task Grid with Hover Modals */
+        #difference {
+            overflow: visible !important;
+        }
+
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: visible;
+        }
+
+        .task-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: visible;
+        }
+
+        .task-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: translateY(-4px);
+            z-index: 10;
+        }
+
+        .task-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .task-speedup {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Hover Tooltip */
+        .task-modal {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 15px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 100;
+        }
+
+        .task-card:hover .task-modal {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        .modal-content {
+            background: rgba(10, 10, 10, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px 25px;
+            width: 320px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .modal-content::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid rgba(10, 10, 10, 0.98);
+        }
+
+        .comparison-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .time-box {
+            text-align: center;
+        }
+
+        .time-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .time-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .time-box.ai .time-value {
+            color: #ff6b6b;
+        }
+
+        .time-box.orchestrate .time-value {
+            color: #4dabf7;
+        }
+
+        .arrow {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .modal-speedup {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 0.9rem;
+            }
+
+            table th,
+            table td {
+                padding: 12px 10px !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 80px;
+            }
+
+            .promo-banner {
+                font-size: 0.8rem;
+                padding: 10px;
+            }
+
+            .sticky-nav {
+                padding: 10px 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 0.85rem;
+            }
+
+            .nav-links a:not(.nav-cta) {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            #agent-canvas {
+                height: 400px;
+            }
+
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .orchestra-members {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .task-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .task-card {
+                padding: 25px 15px;
+            }
+
+            .task-title {
+                font-size: 0.9rem;
+            }
+
+            .task-speedup {
+                font-size: 1.5rem;
+            }
+
+            .modal-content {
+                width: 280px;
+                padding: 18px 20px;
+            }
+
+            .comparison-row {
+                gap: 10px;
+            }
+
+            .time-label {
+                font-size: 0.65rem;
+            }
+
+            .time-value {
+                font-size: 1rem;
+            }
+
+            .arrow {
+                font-size: 0.9rem;
+            }
+
+            .modal-speedup {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Promo Banner -->
+    <div class="promo-banner">
+        Limited Beta Access Available — First 100 users get free credits <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" target="_blank">Sign up now →</a>
+    </div>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky-nav">
+        <div class="nav-content">
+            <a href="#hero" class="nav-logo">OrchestrateOS</a>
+            <div class="nav-links">
+                <a href="#dual-agent">How It Works</a>
+                <a href="#use-cases">Use Cases</a>
+                <a href="#capabilities">Features</a>
+                <a href="#results">Results</a>
+                <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" class="nav-cta" target="_blank">Join Beta</a>
+            </div>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center p-8 text-center bg-black rounded-b-[50px]">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-4 text-gray-100">
-                OrchestrateOS: Your AI Operating System for Work
-            </h1>
-            <p class="text-lg sm:text-xl lg:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto">
-                Stop chatting with AI. Start orchestrating it.
+    <section id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <p class="tagline">Stop chatting with AI. Start orchestrating it.</p>
+            <h1>Your AI Operating System for Work</h1>
+            <p class="subtitle">
+                OrchestrateOS isn't a chatbot—it's a deterministic operating system that transforms natural language into reliable, repeatable workflows.
             </p>
-            <p class="text-md sm:text-lg text-gray-500 mb-8 max-w-3xl mx-auto">
-                OrchestrateOS is not a chatbot—it's a deterministic operating system that transforms natural language into reliable, repeatable workflows. While others give you conversation, we give you execution.
-            </p>
-            <button class="bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:from-sky-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105">
-                Learn More
-            </button>
-        </div>
-    </section>
-
-    <!-- Video Section -->
-    <section class="py-20 px-8 bg-gray-900">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-gray-100">See OrchestrateOS in Action</h2>
-            <div class="video-container rounded-xl overflow-hidden shadow-2xl">
-                <iframe
-                    src="https://www.youtube.com/embed/Q2j4GV2HSns"
-                    title="OrchestrateOS Demo"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-                </iframe>
+            <div class="cta-buttons">
+                <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" class="cta-button" target="_blank">Join Private Beta</a>
             </div>
         </div>
     </section>
 
-    <!-- Problem Blocks Section -->
-    <section class="py-20 px-8 bg-white text-gray-800">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16">The Problem With AI Today</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Problem Block 1 -->
-                <div class="bg-gray-100 p-8 rounded-xl shadow-lg border border-gray-200">
-                    <div class="flex items-center justify-center w-12 h-12 bg-red-500 rounded-full mb-4">
-                        <span class="text-2xl">🧠</span>
+    <!-- The Problem -->
+    <section id="problems">
+        <div class="section-content">
+            <h2>The Problem With AI Today</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>🧠 AI Forgets Everything</h3>
+                    <p>Every conversation starts from scratch. You repeat context, retype instructions, and rebuild workflows constantly.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>🔗 Tools Don't Talk</h3>
+                    <p>Your apps live in silos. You manually copy data between tools. Your "productivity stack" creates more work.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>🚧 Only Puzzle Pieces</h3>
+                    <p>ChatGPT writes snippets. Claude drafts templates. But none finish the job. You're stuck assembling everything.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>💬 Conversation ≠ Execution</h3>
+                    <p>Hours of prompting, refining, re-prompting. The output looks good until you try to use it—then it's broken.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Agent Architecture -->
+    <section id="dual-agent">
+        <div class="section-content">
+            <h2>The Dual-Agent Orchestra</h2>
+            <p style="text-align: center; font-size: 1.3rem; color: #aaa; max-width: 900px; margin: 0 auto; line-height: 1.4; margin-bottom: 50px;">
+                OrchestrateOS coordinates two specialized agents working in perfect harmony.
+            </p>
+
+            <div class="orchestra-members">
+                <div class="orchestra-member">
+                    <div class="icon">🎭</div>
+                    <h3>GPT-4</h3>
+                    <div class="role">Intent Router</div>
+                    <p>Understands what you want, routes tasks to the right tools, and manages high-level strategy.</p>
+                </div>
+                <div class="orchestra-member">
+                    <div class="icon">🎻</div>
+                    <h3>Claude Code</h3>
+                    <div class="role">Autonomous Executor</div>
+                    <p>Reads files, writes code, calls APIs, processes data, and delivers finished results—all without supervision.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What It Does -->
+    <section id="use-cases">
+        <div class="section-content">
+            <h2>What OrchestrateOS Actually Does</h2>
+
+            <div class="use-cases-grid">
+                <div class="use-case">
+                    <div class="use-case-brief">
+                        <div class="use-case-icon">🎙️</div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Content Production</h3>
+                        <p style="font-size: 1rem; color: #666;">Process 50 episodes while you're at the gym</p>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-black">AI Forgets Everything</h3>
-                    <p class="text-gray-600">
-                        Every conversation starts from scratch. You repeat context, retype instructions, and rebuild workflows constantly. AI tools have no memory, no persistence, no understanding of your work.
-                    </p>
-                </div>
-                <!-- Problem Block 2 -->
-                <div class="bg-gray-100 p-8 rounded-xl shadow-lg border border-gray-200">
-                    <div class="flex items-center justify-center w-12 h-12 bg-yellow-500 rounded-full mb-4">
-                        <span class="text-2xl">🔗</span>
+                    <div class="use-case-details">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Content Production Pipeline</h3>
+                        <p style="font-size: 0.95rem; color: #ddd; font-style: italic; margin-bottom: 1rem;">"Process 50 podcast transcripts, extract frameworks, generate titles and summaries, publish to the index."</p>
+                        <p style="font-size: 1rem;">Chunks audio, extracts insights, formats metadata, and updates your content database autonomously.</p>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-black">Tools Don't Talk to Each Other</h3>
-                    <p class="text-gray-600">
-                        Your apps live in silos. You manually copy data between Notion, Airtable, and Gmail. You download files just to upload them elsewhere. Your "productivity stack" creates more work than it eliminates.
-                    </p>
                 </div>
-                <!-- Problem Block 3 -->
-                <div class="bg-gray-100 p-8 rounded-xl shadow-lg border border-gray-200">
-                    <div class="flex items-center justify-center w-12 h-12 bg-blue-500 rounded-full mb-4">
-                        <span class="text-2xl">🚧</span>
+
+                <div class="use-case">
+                    <div class="use-case-brief">
+                        <div class="use-case-icon">🔧</div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Tool Building</h3>
+                        <p style="font-size: 1rem; color: #666;">Custom tools in 10 minutes</p>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-black">AI Only Gives You Puzzle Pieces</h3>
-                    <p class="text-gray-600">
-                        ChatGPT writes code snippets. Claude drafts email templates. DALL-E generates images. But none of them finish the job. You're stuck assembling, debugging, and deploying everything yourself.
-                    </p>
-                </div>
-                <!-- Problem Block 4 -->
-                <div class="bg-gray-100 p-8 rounded-xl shadow-lg border border-gray-200">
-                    <div class="flex items-center justify-center w-12 h-12 bg-purple-500 rounded-full mb-4">
-                        <span class="text-2xl">💬</span>
+                    <div class="use-case-details">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Tool Building on Demand</h3>
+                        <p style="font-size: 0.95rem; color: #ddd; font-style: italic; margin-bottom: 1rem;">"Build a weekly review tool that summarizes docs created, tasks completed, and goals for next week."</p>
+                        <p style="font-size: 1rem;">Generates spec, writes code, registers the tool, tests it, and hands you a working system.</p>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-black">Conversation ≠ Execution</h3>
-                    <p class="text-gray-600">
-                        You've spent hours prompting, refining, and re-prompting AI to get what you need. The output looks good until you try to use it—then you discover it's incomplete, incompatible, or just plain broken.
-                    </p>
+                </div>
+
+                <div class="use-case">
+                    <div class="use-case-brief">
+                        <div class="use-case-icon">⚡</div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">API Automation</h3>
+                        <p style="font-size: 1rem; color: #666;">Full workflows, zero code</p>
+                    </div>
+                    <div class="use-case-details">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">API Automation</h3>
+                        <p style="font-size: 0.95rem; color: #ddd; font-style: italic; margin-bottom: 1rem;">"Pull all Airtable contacts, sync to ConvertKit, tag by engagement level, trigger welcome sequence."</p>
+                        <p style="font-size: 1rem;">Chains APIs, handles authentication, validates data, and executes end-to-end workflows.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Introducing OrchestrateOS Section -->
-    <section class="py-20 px-8 bg-black">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-gray-100">Introducing OrchestrateOS</h2>
-            <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto">The Dual-Agent Architecture for Real Work</p>
-            <p class="text-lg text-gray-400 mb-12 max-w-4xl mx-auto">
-                OrchestrateOS isn't a single AI—it's two specialized agents working in perfect coordination:
+    <!-- The Deterministic Difference -->
+    <section id="difference">
+        <div class="section-content">
+            <h2>Traditional AI vs OrchestrateOS</h2>
+            <p style="text-align: center; font-size: 2rem; font-weight: 700; color: #fff; margin: 0 auto 60px;">
+                20-50x faster
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="bg-gray-900 p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-2xl font-bold mb-4 text-sky-400">GPT-4 (Browser)</h3>
-                    <p class="text-gray-400">Your intent router — Understands what you want, routes tasks to the right tools, and manages high-level strategy.</p>
-                </div>
-                <div class="bg-gray-900 p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-2xl font-bold mb-4 text-emerald-400">Claude Code (CLI)</h3>
-                    <p class="text-gray-400">Your autonomous executor — Reads files, writes code, calls APIs, processes data, and delivers finished results—all without supervision.</p>
-                </div>
-            </div>
-            <p class="text-lg text-gray-400 mt-12 max-w-4xl mx-auto">
-                Together, they form a deterministic operating system where your words become reliable, repeatable actions.
-            </p>
-        </div>
-    </section>
 
-    <!-- Why Two AIs Section -->
-    <section class="py-20 px-8 bg-white text-gray-800">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16">Why Two AIs Are Better Than One</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold mb-4 text-black">🎯 Specialization Over Generalization</h3>
-                    <p class="text-gray-600">
-                        Instead of one AI trying (and failing) to do everything, we split responsibilities: GPT understands intent and routes requests. Claude executes with precision and completes tasks. Neither agent wastes time on the other's job.
-                    </p>
+            <div class="task-grid">
+                <!-- Task 1 -->
+                <div class="task-card">
+                    <div class="task-title">Research & Analysis</div>
+                    <div class="task-speedup">10-15x</div>
+                    <div class="task-modal">
+                        <div class="modal-content">
+                            <div class="comparison-row">
+                                <div class="time-box ai">
+                                    <div class="time-label">Traditional AI</div>
+                                    <div class="time-value">3-5 hrs</div>
+                                </div>
+                                <div class="arrow">→</div>
+                                <div class="time-box orchestrate">
+                                    <div class="time-label">OrchestrateOS</div>
+                                    <div class="time-value">15 min</div>
+                                </div>
+                            </div>
+                            <div class="modal-speedup">10-15x faster</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold mb-4 text-black">📋 File-Based Coordination</h3>
-                    <p class="text-gray-600">
-                        No fragile API calls. No conversation history limits. Just a simple task queue: GPT writes tasks → Claude reads and executes → Results saved → GPT reviews and continues. Zero conversation overhead, unlimited context, perfect reliability.
-                    </p>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold mb-4 text-black">⚡ Zero Marginal Cost</h3>
-                    <p class="text-gray-600">
-                        Both agents run on subscriptions, not API calls. Process 1 task or 1,000 tasks—the cost is the same: $0 per task. While others worry about token limits, we execute unlimited workflows for free.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Real-World Use Cases Section -->
-    <section class="py-20 px-8 bg-gray-900">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 text-gray-100">What OrchestrateOS Actually Does</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-black p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Email Triage & Inbox Automation</h3>
-                    <p class="text-gray-400 mb-3">"Archive all newsletters, star emails from investors, draft replies to client requests."</p>
-                    <p class="text-gray-500 text-sm">→ OrchestrateOS reads your inbox, categorizes messages, generates contextual responses, and updates your task list—all autonomously.</p>
+                <!-- Task 2 -->
+                <div class="task-card">
+                    <div class="task-title">Build Tools</div>
+                    <div class="task-speedup">30-50x</div>
+                    <div class="task-modal">
+                        <div class="modal-content">
+                            <div class="comparison-row">
+                                <div class="time-box ai">
+                                    <div class="time-label">Traditional AI</div>
+                                    <div class="time-value">4-6 hrs</div>
+                                </div>
+                                <div class="arrow">→</div>
+                                <div class="time-box orchestrate">
+                                    <div class="time-label">OrchestrateOS</div>
+                                    <div class="time-value">8 min</div>
+                                </div>
+                            </div>
+                            <div class="modal-speedup">30-50x faster</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-black p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Content Production Pipeline</h3>
-                    <p class="text-gray-400 mb-3">"Process 50 podcast transcripts, extract frameworks, generate titles and summaries, publish to the index."</p>
-                    <p class="text-gray-500 text-sm">→ While you're at the gym, OrchestrateOS chunks audio, extracts insights, formats metadata, and updates your content database.</p>
-                </div>
-                <div class="bg-black p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Tool Building on Demand</h3>
-                    <p class="text-gray-400 mb-3">"Build a weekly review tool that summarizes docs created, tasks completed, and goals for next week."</p>
-                    <p class="text-gray-500 text-sm">→ OrchestrateOS generates the spec, writes the code, registers the tool, tests it, and hands you a working system—in 10 minutes.</p>
-                </div>
-                <div class="bg-black p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">API Automation</h3>
-                    <p class="text-gray-400 mb-3">"Pull all Airtable contacts, sync to ConvertKit, tag by engagement level, trigger welcome sequence."</p>
-                    <p class="text-gray-500 text-sm">→ OrchestrateOS chains APIs, handles authentication, validates data, and executes the full workflow without a single line of code from you.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Feature Blocks Section -->
-    <section class="py-20 px-8 bg-black text-gray-800">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-100">Core Capabilities</h2>
-            <p class="text-lg sm:text-xl text-center text-gray-400 mb-16 max-w-3xl mx-auto">
-                OrchestrateOS doesn't just help you work—it does the work.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-100">🧠 Persistent Memory Across Everything</h3>
-                    <p class="text-gray-400">
-                        OrchestrateOS maintains context across every conversation, all your tools and files, past workflows and preferences, and real-time system state. You never repeat yourself. The system remembers everything.
-                    </p>
+                <!-- Task 3 -->
+                <div class="task-card">
+                    <div class="task-title">Process Data</div>
+                    <div class="task-speedup">20-40x</div>
+                    <div class="task-modal">
+                        <div class="modal-content">
+                            <div class="comparison-row">
+                                <div class="time-box ai">
+                                    <div class="time-label">Traditional AI</div>
+                                    <div class="time-value">2-4 hrs</div>
+                                </div>
+                                <div class="arrow">→</div>
+                                <div class="time-box orchestrate">
+                                    <div class="time-label">OrchestrateOS</div>
+                                    <div class="time-value">5 min</div>
+                                </div>
+                            </div>
+                            <div class="modal-speedup">20-40x faster</div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Feature 2 -->
-                <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-100">⚙️ Built for Reliability, Not Conversation</h3>
-                    <p class="text-gray-400">
-                        Schema validation on every tool call. Auto-reconstruction when parameters are malformed. Thread scoring penalizes AI mistakes. Execution logs track every action. If it fails twice, the system blocks it.
-                    </p>
+
+                <!-- Task 4 -->
+                <div class="task-card">
+                    <div class="task-title">Create Content</div>
+                    <div class="task-speedup">5-8x</div>
+                    <div class="task-modal">
+                        <div class="modal-content">
+                            <div class="comparison-row">
+                                <div class="time-box ai">
+                                    <div class="time-label">Traditional AI</div>
+                                    <div class="time-value">3-4 hrs</div>
+                                </div>
+                                <div class="arrow">→</div>
+                                <div class="time-box orchestrate">
+                                    <div class="time-label">OrchestrateOS</div>
+                                    <div class="time-value">35 min</div>
+                                </div>
+                            </div>
+                            <div class="modal-speedup">5-8x faster</div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Feature 3 -->
-                <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-100">🔧 Your Tools Become a Unified System</h3>
-                    <p class="text-gray-400">
-                        Connect once, use forever. Outline, Airtable, ConvertKit, Nylas, Canvas, Readwise, podcast manager—every tool talks to every other tool. No API wrangling, no manual integration, no configuration hell.
-                    </p>
-                </div>
-                <!-- Feature 4 -->
-                <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-100">🪄 Plain English Commands Run Complex Workflows</h3>
-                    <p class="text-gray-400">
-                        "Prep my podcast transcript, extract the midroll ad placement, generate a title and summary following the style guide, update the episode index, and publish." All from one sentence.
-                    </p>
-                </div>
-                <!-- Feature 5 -->
-                <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-100">⚡ Finished Outcomes, Not Draft Suggestions</h3>
-                    <p class="text-gray-400">
-                        Others give you code snippets to debug, email drafts to edit, workflow ideas to implement. OrchestrateOS delivers working tools registered in the system, sent emails logged in your outbox, executed workflows with completion logs.
-                    </p>
-                </div>
-                <!-- Feature 6 -->
-                <div class="bg-transparent p-8 rounded-xl shadow-lg border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-100">🛡️ Self-Monitoring and Self-Healing</h3>
-                    <p class="text-gray-400">
-                        The execution hub tracks success rate by tool and action, thread health scoring AI behavior, error patterns identifying failures, and auto-reconstruction fixing malformed payloads. AI reliability isn't magic—it's engineering.
-                    </p>
+
+                <!-- Task 5 -->
+                <div class="task-card">
+                    <div class="task-title">Automate Workflows</div>
+                    <div class="task-speedup">25-35x</div>
+                    <div class="task-modal">
+                        <div class="modal-content">
+                            <div class="comparison-row">
+                                <div class="time-box ai">
+                                    <div class="time-label">Traditional AI</div>
+                                    <div class="time-value">5-7 hrs</div>
+                                </div>
+                                <div class="arrow">→</div>
+                                <div class="time-box orchestrate">
+                                    <div class="time-label">OrchestrateOS</div>
+                                    <div class="time-value">12 min</div>
+                                </div>
+                            </div>
+                            <div class="modal-speedup">25-35x faster</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- System Flow Section -->
-    <section class="py-20 px-8 bg-white text-gray-800">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16">How It Works: The 3-Step Flow</h2>
-            <div class="flex flex-col md:flex-row items-start justify-center space-y-12 md:space-y-0 md:space-x-12">
-                <!-- Your Intent -->
-                <div class="flex flex-col items-start text-left">
-                    <span class="text-5xl mb-4">💬</span>
-                    <h3 class="text-xl font-semibold mb-2 text-black">1. Your Intent (Natural Language)</h3>
-                    <p class="text-gray-600 max-w-xs">
-                        You describe what you want in plain English—via browser, email, or voice. OrchestrateOS interprets your words and maps them to the right tools, files, and workflows.
-                    </p>
+    <!-- Core Capabilities -->
+    <section id="capabilities">
+        <div class="section-content">
+            <h2>Core Capabilities</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="icon">🧠</span>
+                    <h3>Persistent Memory</h3>
+                    <p>OrchestrateOS maintains context across every conversation, tool, file, and workflow. You never repeat yourself.</p>
                 </div>
-
-                <!-- Arrow Icon -->
-                <div class="text-5xl text-gray-700 md:block hidden">→</div>
-                <div class="text-5xl text-gray-700 md:hidden block transform rotate-90">→</div>
-
-                <!-- Intent Interpretation -->
-                <div class="flex flex-col items-start text-left">
-                    <span class="text-5xl mb-4">🤖</span>
-                    <h3 class="text-xl font-semibold mb-2 text-black">2. Intelligent Routing (GPT-4)</h3>
-                    <p class="text-gray-600 max-w-xs">
-                        GPT-4 doesn't execute—it routes. Determines which tools to call, assigns tasks to Claude Code, manages context and approvals. The router is fast, smart, and focused only on coordination.
-                    </p>
+                <div class="feature-card">
+                    <span class="icon">⚙️</span>
+                    <h3>Built for Reliability</h3>
+                    <p>Schema validation, auto-reconstruction, thread scoring, and execution logs. AI becomes reliable because we engineer it to be.</p>
                 </div>
-
-                <!-- Arrow Icon -->
-                <div class="text-5xl text-gray-700 md:block hidden">→</div>
-                <div class="text-5xl text-gray-700 md:hidden block transform rotate-90">→</div>
-
-                <!-- Automated Execution -->
-                <div class="flex flex-col items-start text-left">
-                    <span class="text-5xl mb-4">⚙️</span>
-                    <h3 class="text-xl font-semibold mb-2 text-black">3. Autonomous Execution (Claude Code)</h3>
-                    <p class="text-gray-600 max-w-xs">
-                        Claude Code reads the task queue and executes: reads files and databases, calls APIs and processes data, writes code and tests tools, generates outputs and logs results. You supervise only when approval is needed.
-                    </p>
+                <div class="feature-card">
+                    <span class="icon">🔧</span>
+                    <h3>Unified Tool System</h3>
+                    <p>Outline, Airtable, ConvertKit, Nylas, Canvas, Readwise, and more—all talking to each other. No manual integration.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🪄</span>
+                    <h3>Plain English Commands</h3>
+                    <p>Complex workflows run from single sentences. No code, no configuration, no API wrangling.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">⚡</span>
+                    <h3>Finished Outcomes</h3>
+                    <p>Not drafts or suggestions—working tools, sent emails, executed workflows. You get results, not homework.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🛡️</span>
+                    <h3>Self-Monitoring</h3>
+                    <p>Tracks success rates, thread health, error patterns. If it fails, it blocks. If it breaks, it fixes. Reliability through engineering.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Real Results Section -->
-    <section class="py-20 px-8 bg-gray-900">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 text-gray-100">Real Results</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-black p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-2xl font-bold mb-3 text-emerald-400">10-Minute Feature Cycles</h3>
-                    <p class="text-gray-400 mb-2">Traditional dev: 2-3 months from idea to deployment</p>
-                    <p class="text-gray-400">OrchestrateOS: 10 minutes from request to working feature</p>
+    <!-- Real Results -->
+    <section id="results">
+        <div class="section-content">
+            <h2>Real Results</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">10 min</div>
+                    <div class="label">Feature Cycles<br>(vs 2-3 months traditional)</div>
                 </div>
-                <div class="bg-black p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-2xl font-bold mb-3 text-emerald-400">Bathroom-Break Productivity</h3>
-                    <p class="text-gray-400 mb-2">Real example: Process 50 podcast episodes for metadata extraction while away from desk</p>
-                    <p class="text-gray-400">Time saved: 20 hours of manual work → 15 minutes of autonomous execution</p>
+                <div class="stat-card">
+                    <div class="number">$0</div>
+                    <div class="label">Marginal Cost<br>(subscription, not per-task)</div>
                 </div>
-                <div class="bg-black p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-2xl font-bold mb-3 text-emerald-400">Zero Marginal Cost Business Model</h3>
-                    <p class="text-gray-400 mb-2">Subscription AI: $20/month regardless of usage</p>
-                    <p class="text-gray-400">Per-task cost: $0 for 1 task, $0 for 1,000 tasks</p>
+                <div class="stat-card">
+                    <div class="number">20x</div>
+                    <div class="label">Execution Speed<br>(vs manual workflows)</div>
                 </div>
-                <div class="bg-black p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-2xl font-bold mb-3 text-emerald-400">Tool Sprawl Eliminated</h3>
-                    <p class="text-gray-400 mb-2">Before: 20+ SaaS subscriptions, manual data transfer, constant context switching</p>
-                    <p class="text-gray-400">After: Single orchestration layer, unified interface, autonomous coordination</p>
+                <div class="stat-card">
+                    <div class="number">100%</div>
+                    <div class="label">Autonomous<br>(no babysitting required)</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Who It's For Section -->
-    <section class="py-20 px-8 bg-black">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16 text-gray-100">Who It's For</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Knowledge Workers</h3>
-                    <p class="text-gray-400">Automate research, note-taking, content creation, and publishing. Turn 100 podcast transcripts into a searchable knowledge vault in an hour.</p>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Creators & Producers</h3>
-                    <p class="text-gray-400">Process audio, generate metadata, publish episodes, and manage distribution—all autonomously. Spend time creating, not administrating.</p>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Developers & Builders</h3>
-                    <p class="text-gray-400">Build tools, test features, and deploy systems in minutes instead of weeks. Focus on product, not infrastructure.</p>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Executives & Operators</h3>
-                    <p class="text-gray-400">Triage inbox, manage CRM, automate outreach, and track metrics—without a team. Operate like a 10-person company with zero headcount.</p>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-3 text-sky-400">Consultants & Freelancers</h3>
-                    <p class="text-gray-400">Onboard clients, process deliverables, generate reports, and manage communications—at scale. 10x your capacity without burning out.</p>
-                </div>
-            </div>
+    <!-- CTA -->
+    <section id="cta">
+        <div class="section-content">
+            <h2>Ready to Experience AI That Actually Finishes the Job?</h2>
+            <p>We're onboarding early users who want to eliminate tool sprawl, need autonomous execution (not suggestions), and understand that real AI executes, not chats.</p>
+            <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" class="cta-button" target="_blank">Join the Waitlist</a>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="py-20 px-8 text-center bg-white rounded-t-[50px]">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-black">
-                Ready to Experience AI That Actually Finishes the Job?
-            </h2>
-            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                Join the Private Beta. We're onboarding early users who want to eliminate tool sprawl, need autonomous execution (not suggestions), value reliability over conversation, and understand that real AI executes—not chats.
-            </p>
-            <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" target="_blank" rel="noopener noreferrer">
-                <button class="bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:from-sky-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105">
-                    Join The Private Beta
-                </button>
-            </a>
-            <p class="text-sm text-gray-500 mt-8">
-                OrchestrateOS: Where Your Words Become Workflows
-            </p>
-            <p class="text-xs text-gray-400 mt-2">
-                Built by humans who got tired of babysitting AI.
-            </p>
-        </div>
-    </section>
+    <!-- Three.js -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // Hero Particle Background
+        const heroCanvas = document.getElementById('hero-canvas');
+        const heroScene = new THREE.Scene();
+        const heroCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const heroRenderer = new THREE.WebGLRenderer({ canvas: heroCanvas, alpha: true, antialias: true });
+
+        heroRenderer.setSize(window.innerWidth, window.innerHeight);
+        heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        heroCamera.position.z = 5;
+
+        // Create particles
+        const particleCount = 2000;
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 20;
+            positions[i + 1] = (Math.random() - 0.5) * 20;
+            positions[i + 2] = (Math.random() - 0.5) * 20;
+
+            velocities[i] = (Math.random() - 0.5) * 0.02;
+            velocities[i + 1] = (Math.random() - 0.5) * 0.02;
+            velocities[i + 2] = (Math.random() - 0.5) * 0.02;
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const material = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.05,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        heroScene.add(particles);
+
+        // Mouse interaction
+        const mouse = { x: 0, y: 0 };
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Hero animation
+        function animateHero() {
+            requestAnimationFrame(animateHero);
+
+            const positions = particles.geometry.attributes.position.array;
+
+            for (let i = 0; i < positions.length; i += 3) {
+                positions[i] += velocities[i];
+                positions[i + 1] += velocities[i + 1];
+                positions[i + 2] += velocities[i + 2];
+
+                // Boundaries
+                if (Math.abs(positions[i]) > 10) velocities[i] *= -1;
+                if (Math.abs(positions[i + 1]) > 10) velocities[i + 1] *= -1;
+                if (Math.abs(positions[i + 2]) > 10) velocities[i + 2] *= -1;
+            }
+
+            particles.geometry.attributes.position.needsUpdate = true;
+            particles.rotation.y += 0.0005;
+
+            // Mouse influence
+            heroCamera.position.x += (mouse.x * 0.5 - heroCamera.position.x) * 0.05;
+            heroCamera.position.y += (mouse.y * 0.5 - heroCamera.position.y) * 0.05;
+            heroCamera.lookAt(heroScene.position);
+
+            heroRenderer.render(heroScene, heroCamera);
+        }
+        animateHero();
+
+        // Responsive for hero only
+        window.addEventListener('resize', () => {
+            heroCamera.aspect = window.innerWidth / window.innerHeight;
+            heroCamera.updateProjectionMatrix();
+            heroRenderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 
 </body>
 </html>
