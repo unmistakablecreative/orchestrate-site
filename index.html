@@ -1,42 +1,1845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrchestrateOS - Your AI Operating System for Work</title>
 
-    <!DOCTYPE html>
-    <html lang='en'>
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>OrchestrateOS</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    </head>
-    
-    <body class='antialiased'>
-        
-    <section id='hero' class='text-center bg-black text-white py-20'>
-        <div class='max-w-3xl mx-auto px-6'>
-            <h1 class='text-4xl md:text-6xl font-bold mb-4'>Your Time, Your Tasks — Organized Effortlessly</h1>
-            <p class='text-lg md:text-xl'>TodoFlow helps you turn chaos into clarity with a natural-language to-do system.</p>
+    <!-- Open Graph / Social Sharing Meta Tags -->
+    <meta property="og:title" content="OrchestrateOS - Your AI Operating System for Work">
+    <meta property="og:description" content="Stop chatting with AI. Start orchestrating it. OrchestrateOS transforms natural language into reliable, repeatable workflows. 20-50x faster execution.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://orchestrateos.com">
+    <meta property="og:image" content="https://orchestrateos.com/og-image.png">
+    <meta property="og:site_name" content="OrchestrateOS">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OrchestrateOS - Your AI Operating System for Work">
+    <meta name="twitter:description" content="Stop chatting with AI. Start orchestrating it. 20-50x faster execution with dual-agent coordination.">
+    <meta name="twitter:image" content="https://orchestrateos.com/og-image.png">
+
+    <!-- General Meta Tags -->
+    <meta name="description" content="OrchestrateOS isn't a chatbot—it's a deterministic operating system that transforms natural language into reliable, repeatable workflows with 20-50x faster execution.">
+    <meta name="keywords" content="AI automation, AI orchestration, autonomous AI, AI workflows, productivity automation, AI operating system">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            padding-top: 100px;
+        }
+
+        /* Promo Banner */
+        .promo-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            z-index: 1001;
+            font-weight: 500;
+        }
+
+        .promo-banner a {
+            color: #fff;
+            text-decoration: underline;
+            margin-left: 10px;
+        }
+
+        /* Sticky Navigation */
+        .sticky-nav {
+            position: fixed;
+            top: 44px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 15px 40px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .nav-cta {
+            background: #fff;
+            color: #000 !important;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            opacity: 1 !important;
+            background: #f0f0f0;
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content .tagline {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #888;
+        }
+
+        .hero-content .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 400;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            color: #aaa;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 48px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #000;
+            background: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Section Styles - Full Width */
+        section {
+            position: relative;
+            padding: 80px 40px;
+            width: 100%;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Alternating Black/White Backgrounds */
+        #hero {
+            background: #000;
+        }
+
+        #problems {
+            background: #fff;
+            color: #000;
+        }
+
+        #problems h2,
+        #problems h3 {
+            color: #000;
+        }
+
+        #problems p {
+            color: #333;
+        }
+
+        #dual-agent {
+            background: #000;
+            color: #fff;
+        }
+
+        #use-cases {
+            background: #fff;
+            color: #000;
+        }
+
+        #use-cases h2,
+        #use-cases h3 {
+            color: #000;
+        }
+
+        #use-cases .result {
+            color: #333 !important;
+        }
+
+        #difference {
+            background: #000;
+            color: #fff;
+        }
+
+        #capabilities {
+            background: #fff;
+            color: #000;
+        }
+
+        #capabilities h2,
+        #capabilities h3 {
+            color: #000;
+        }
+
+        #capabilities p {
+            color: #333;
+        }
+
+        #results {
+            background: #000;
+            color: #fff;
+        }
+
+        #cta {
+            background: #fff;
+            color: #000;
+        }
+
+        #cta h2 {
+            color: #000;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+        }
+
+        #cta p {
+            color: #333;
+        }
+
+        #cta .cta-button {
+            background: #000;
+            color: #fff;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .problem-card {
+            padding: 30px 25px;
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            background: rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .problem-card p {
+            color: #aaa;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Conductor Visualization */
+        .conductor-container {
+            margin-top: 50px;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .conductor-svg {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .conductor-zone {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .conductor-zone:hover {
+            opacity: 0.8;
+        }
+
+        .baton {
+            animation: conductorWave 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        @keyframes conductorWave {
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        .orchestra-members {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .orchestra-member {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .orchestra-member:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .orchestra-member .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .orchestra-member h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .orchestra-member .role {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .orchestra-member p {
+            font-size: 0.95rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* Hover Modal Tooltip */
+        .sphere-tooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px 30px;
+            max-width: 350px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .sphere-tooltip.visible {
+            opacity: 1;
+        }
+
+        .sphere-tooltip h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .sphere-tooltip .role {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .sphere-tooltip p {
+            color: #aaa;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Apple-Style Sidebar Navigation */
+        .capabilities-container {
+            display: flex;
+            gap: 60px;
+            margin-top: 50px;
+            align-items: flex-start;
+        }
+
+        .capabilities-nav {
+            flex: 0 0 280px;
+            position: sticky;
+            top: 140px;
+        }
+
+        .capability-nav-item {
+            padding: 18px 25px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+            background: transparent;
+            border-left: 3px solid transparent;
+        }
+
+        .capability-nav-item:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .capability-nav-item.active {
+            background: rgba(0, 0, 0, 0.06);
+            border-left-color: #000;
+        }
+
+        .capability-nav-icon {
+            font-size: 1.8rem;
+            margin-right: 12px;
+        }
+
+        .capability-nav-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #000;
+            display: inline-block;
+        }
+
+        .capabilities-content {
+            flex: 1;
+            min-height: 500px;
+        }
+
+        .capability-detail {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .capability-detail.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .capability-detail-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .capability-detail-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .capability-detail-description {
+            font-size: 1.3rem;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+        }
+
+        .capability-examples-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .capability-examples-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .capability-example-item {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 20px 25px;
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .capability-example-item::before {
+            content: "→";
+            margin-right: 10px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        /* Scroll Animations - Apple Style */
+        .scroll-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scroll-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-fade-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .scroll-fade-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .scroll-fade-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            padding: 35px 30px;
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .feature-card p {
+            color: #aaa;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-card .label {
+            font-size: 1.2rem;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        #cta {
+            text-align: center;
+            padding: 80px 40px;
+        }
+
+        #cta h2 {
+            margin-bottom: 2rem;
+        }
+
+        #cta p {
+            font-size: 1.3rem;
+            color: #aaa;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        /* Data Table Styles */
+        table {
+            color: #fff;
+        }
+
+        table th {
+            color: #fff;
+        }
+
+        table td {
+            color: #ccc;
+        }
+
+        /* Comparison Carousel */
+        #difference {
+            overflow: hidden;
+        }
+
+        .comparison-carousel {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 0 40px;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .carousel-container:active {
+            cursor: grabbing;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            user-select: none;
+        }
+
+        .carousel-track.dragging {
+            transition: none;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            padding: 0 20px;
+        }
+
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px 60px;
+            text-align: center;
+        }
+
+        .comparison-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-category {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-description {
+            font-size: 1.1rem;
+            color: #aaa;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .time-comparison {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .time-block {
+            text-align: center;
+        }
+
+        .time-block-label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .time-block-value {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .time-block.traditional .time-block-value {
+            color: #ff6b6b;
+        }
+
+        .time-block.orchestrate .time-block-value {
+            color: #4dabf7;
+        }
+
+        .time-arrow {
+            font-size: 2rem;
+            color: #666;
+        }
+
+        .speedup-badge {
+            display: inline-block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding: 10px 0;
+        }
+
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 0.9rem;
+            }
+
+            table th,
+            table td {
+                padding: 12px 10px !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 80px;
+            }
+
+            .promo-banner {
+                font-size: 0.8rem;
+                padding: 10px;
+            }
+
+            .sticky-nav {
+                padding: 10px 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 0.85rem;
+            }
+
+            .nav-links a:not(.nav-cta) {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            #agent-canvas {
+                height: 400px;
+            }
+
+            .capabilities-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .capabilities-nav {
+                position: static;
+                flex: 0 0 auto;
+                width: 100%;
+            }
+
+            .capability-nav-item {
+                padding: 15px 20px;
+            }
+
+            .capability-nav-icon {
+                font-size: 1.5rem;
+            }
+
+            .capability-nav-title {
+                font-size: 1rem;
+            }
+
+            .capabilities-content {
+                min-height: auto;
+            }
+
+            .capability-detail-icon {
+                font-size: 3.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .capability-detail-title {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .capability-detail-description {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+
+            .capability-examples-title {
+                font-size: 1rem;
+            }
+
+            .capability-examples-list {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .capability-example-item {
+                padding: 15px 20px;
+                font-size: 0.95rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .orchestra-members {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .comparison-card {
+                padding: 35px 25px;
+            }
+
+            .comparison-icon {
+                font-size: 3rem;
+            }
+
+            .comparison-category {
+                font-size: 1.4rem;
+            }
+
+            .comparison-description {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .time-comparison {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .time-block-value {
+                font-size: 2.2rem;
+            }
+
+            .time-arrow {
+                transform: rotate(90deg);
+                font-size: 1.5rem;
+            }
+
+            .speedup-badge {
+                font-size: 1.2rem;
+            }
+
+        }
+
+        /* Mobile responsive for execution dashboard */
+        @media (max-width: 768px) {
+            .carousel-slide .comparison-card[style*="padding: 50px 60px"] {
+                padding: 30px 20px !important;
+            }
+
+            .carousel-slide .comparison-card > div[style*="grid-template-columns: repeat(2, 1fr)"] {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Promo Banner -->
+    <div class="promo-banner">
+        Limited Beta Access Available — First 100 users get free credits <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" target="_blank">Sign up now →</a>
+    </div>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky-nav">
+        <div class="nav-content">
+            <a href="#hero" class="nav-logo">OrchestrateOS</a>
+            <div class="nav-links">
+                <a href="#dual-agent">How It Works</a>
+                <a href="#use-cases">Use Cases</a>
+                <a href="#capabilities">Features</a>
+                <a href="#results">Results</a>
+                <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" class="nav-cta" target="_blank">Join Beta</a>
+            </div>
         </div>
-    </section>
-    
-        
-    <section id='features' class='bg-black text-white py-20'>
-        <div class='max-w-4xl mx-auto px-6'>
-            <h2 class='text-3xl font-bold mb-12 text-center'>Features</h2>
-            <div class='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                <div class='p-4'>✅ Add tasks with simple phrases</div><div class='p-4'>🧠 AI-assisted task grouping</div><div class='p-4'>📆 Daily, weekly, and monthly views</div><div class='p-4'>📲 Sync across all devices</div><div class='p-4'>🗂️ Tags, priorities, and projects</div><div class='p-4'>📈 Progress tracking over time</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <p class="tagline">Stop chatting with AI. Start orchestrating it.</p>
+            <h1>Your AI Operating System for Work</h1>
+            <p class="subtitle">
+                OrchestrateOS isn't a chatbot—it's a deterministic operating system that transforms natural language into reliable, repeatable workflows.
+            </p>
+            <div class="cta-buttons">
+                <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" class="cta-button" target="_blank">Join Private Beta</a>
             </div>
         </div>
     </section>
-    
-        
-    <section id='implications' class='bg-black text-white py-20'>
-        <div class='max-w-4xl mx-auto text-center'>
-            <h3 class='text-2xl font-bold mb-4'>Ready to take control of your day?</h3>
-            <a href='#' class='bg-indigo-600 px-6 py-3 text-white font-bold rounded hover:bg-indigo-700'>Try TodoFlow Free</a>
+
+    <!-- The Problem -->
+    <section id="problems">
+        <div class="section-content">
+            <h2 class="scroll-fade">The Problem With AI Today</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>🧠 AI Forgets Everything</h3>
+                    <p>Every conversation starts from scratch. You repeat context, retype instructions, and rebuild workflows constantly.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>🔗 Tools Don't Talk</h3>
+                    <p>Your apps live in silos. You manually copy data between tools. Your "productivity stack" creates more work.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>🚧 Only Puzzle Pieces</h3>
+                    <p>ChatGPT writes snippets. Claude drafts templates. But none finish the job. You're stuck assembling everything.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>💬 Conversation ≠ Execution</h3>
+                    <p>Hours of prompting, refining, re-prompting. The output looks good until you try to use it—then it's broken.</p>
+                </div>
+            </div>
         </div>
     </section>
-    
-    </body>
-    </html>
-    
+
+    <!-- Dual Agent Architecture -->
+    <section id="dual-agent">
+        <div class="section-content">
+            <h2 class="scroll-fade">The Dual-Agent Orchestra</h2>
+            <p style="text-align: center; font-size: 1.3rem; color: #aaa; max-width: 900px; margin: 0 auto; line-height: 1.4; margin-bottom: 50px;">
+                OrchestrateOS coordinates two specialized agents working in perfect harmony.
+            </p>
+
+            <div class="orchestra-members">
+                <div class="orchestra-member">
+                    <div class="icon">🎭</div>
+                    <h3>GPT-4</h3>
+                    <div class="role">Intent Router</div>
+                    <p>Understands what you want, routes tasks to the right tools, and manages high-level strategy.</p>
+                </div>
+                <div class="orchestra-member">
+                    <div class="icon">🎻</div>
+                    <h3>Claude Code</h3>
+                    <div class="role">Autonomous Executor</div>
+                    <p>Reads files, writes code, calls APIs, processes data, and delivers finished results—all without supervision.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What It Does -->
+    <section id="use-cases">
+        <div class="section-content">
+            <h2 class="scroll-fade">What OrchestrateOS Actually Does</h2>
+
+            <div class="capabilities-container">
+                <!-- Left Navigation -->
+                <div class="capabilities-nav">
+                    <div class="capability-nav-item active" data-capability="api">
+                        <span class="capability-nav-icon">🔗</span>
+                        <span class="capability-nav-title">API Orchestration</span>
+                    </div>
+                    <div class="capability-nav-item" data-capability="content">
+                        <span class="capability-nav-icon">🎬</span>
+                        <span class="capability-nav-title">Content Production</span>
+                    </div>
+                    <div class="capability-nav-item" data-capability="tools">
+                        <span class="capability-nav-icon">🔧</span>
+                        <span class="capability-nav-title">Custom Tool Builder</span>
+                    </div>
+                    <div class="capability-nav-item" data-capability="research">
+                        <span class="capability-nav-icon">🔍</span>
+                        <span class="capability-nav-title">Research & Analysis</span>
+                    </div>
+                    <div class="capability-nav-item" data-capability="data">
+                        <span class="capability-nav-icon">📊</span>
+                        <span class="capability-nav-title">Data Processing</span>
+                    </div>
+                    <div class="capability-nav-item" data-capability="email">
+                        <span class="capability-nav-icon">📧</span>
+                        <span class="capability-nav-title">Email & Calendar</span>
+                    </div>
+                    <div class="capability-nav-item" data-capability="docs">
+                        <span class="capability-nav-icon">📚</span>
+                        <span class="capability-nav-title">Document Management</span>
+                    </div>
+                    <div class="capability-nav-item" data-capability="code">
+                        <span class="capability-nav-icon">⚙️</span>
+                        <span class="capability-nav-title">Code & Deployment</span>
+                    </div>
+                    <div class="capability-nav-item" data-capability="learning">
+                        <span class="capability-nav-icon">🎓</span>
+                        <span class="capability-nav-title">Learning Management</span>
+                    </div>
+                </div>
+
+                <!-- Right Content -->
+                <div class="capabilities-content">
+                    <!-- API Orchestration -->
+                    <div class="capability-detail active" data-capability="api">
+                        <span class="capability-detail-icon">🔗</span>
+                        <h3 class="capability-detail-title">API Orchestration</h3>
+                        <p class="capability-detail-description">
+                            Connect your entire tool stack and orchestrate complex workflows across platforms. No manual integrations, no middleware—just tell it what you need and it chains the APIs.
+                        </p>
+                        <div class="capability-examples-title">What You Can Do</div>
+                        <div class="capability-examples-list">
+                            <div class="capability-example-item">Sync Airtable → ConvertKit → Notion automatically</div>
+                            <div class="capability-example-item">Pull calendar events and create tasks in project management tools</div>
+                            <div class="capability-example-item">Update CRM from email signatures and meeting notes</div>
+                            <div class="capability-example-item">Chain 50+ APIs with authentication handled</div>
+                            <div class="capability-example-item">Build multi-step automations without Zapier</div>
+                            <div class="capability-example-item">Trigger workflows from webhooks and events</div>
+                        </div>
+                    </div>
+
+                    <!-- Content Production -->
+                    <div class="capability-detail" data-capability="content">
+                        <span class="capability-detail-icon">🎬</span>
+                        <h3 class="capability-detail-title">Content Production</h3>
+                        <p class="capability-detail-description">
+                            End-to-end content workflows from ideation to publishing. Create, format, and distribute content across all your channels—all from a single command.
+                        </p>
+                        <div class="capability-examples-title">What You Can Do</div>
+                        <div class="capability-examples-list">
+                            <div class="capability-example-item">Process podcast transcripts and extract key insights</div>
+                            <div class="capability-example-item">Generate video scripts with precise timestamps</div>
+                            <div class="capability-example-item">Write and schedule email sequences</div>
+                            <div class="capability-example-item">Create social media posts for multiple platforms</div>
+                            <div class="capability-example-item">Publish directly to Medium, Buffer, YouTube</div>
+                            <div class="capability-example-item">Generate blog posts from notes and research</div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Tool Builder -->
+                    <div class="capability-detail" data-capability="tools">
+                        <span class="capability-detail-icon">🔧</span>
+                        <h3 class="capability-detail-title">Custom Tool Builder</h3>
+                        <p class="capability-detail-description">
+                            Build production-ready tools on demand—no coding required. Describe what you need and get a fully tested, documented tool integrated into your system.
+                        </p>
+                        <div class="capability-examples-title">What You Can Do</div>
+                        <div class="capability-examples-list">
+                            <div class="capability-example-item">Weekly review dashboards with metrics and goals</div>
+                            <div class="capability-example-item">CRM sync automation between platforms</div>
+                            <div class="capability-example-item">Invoice generators with custom templates</div>
+                            <div class="capability-example-item">Analytics reporters for business metrics</div>
+                            <div class="capability-example-item">SEO analyzers for content optimization</div>
+                            <div class="capability-example-item">Custom scrapers for data collection</div>
+                        </div>
+                    </div>
+
+                    <!-- Research & Analysis -->
+                    <div class="capability-detail" data-capability="research">
+                        <span class="capability-detail-icon">🔍</span>
+                        <h3 class="capability-detail-title">Research & Analysis</h3>
+                        <p class="capability-detail-description">
+                            Deep research workflows with synthesis and citation. Extract insights from hundreds of sources and compile them into actionable reports.
+                        </p>
+                        <div class="capability-examples-title">What You Can Do</div>
+                        <div class="capability-examples-list">
+                            <div class="capability-example-item">Scrape competitor sites for market research</div>
+                            <div class="capability-example-item">Extract insights from 100+ PDF documents</div>
+                            <div class="capability-example-item">Compile comprehensive research reports</div>
+                            <div class="capability-example-item">Synthesize findings across multiple sources</div>
+                            <div class="capability-example-item">Generate bibliographies with citations</div>
+                            <div class="capability-example-item">Analyze trends from data sources</div>
+                        </div>
+                    </div>
+
+                    <!-- Data Processing -->
+                    <div class="capability-detail" data-capability="data">
+                        <span class="capability-detail-icon">📊</span>
+                        <h3 class="capability-detail-title">Data Processing</h3>
+                        <p class="capability-detail-description">
+                            Transform, validate, and manage data across formats and systems. Clean messy data, convert between formats, and keep databases in sync.
+                        </p>
+                        <div class="capability-examples-title">What You Can Do</div>
+                        <div class="capability-examples-list">
+                            <div class="capability-example-item">Parse and transform CSV/JSON/XML files</div>
+                            <div class="capability-example-item">Clean and validate data entries automatically</div>
+                            <div class="capability-example-item">Convert between data formats seamlessly</div>
+                            <div class="capability-example-item">Update and sync databases across systems</div>
+                            <div class="capability-example-item">Generate data summaries and reports</div>
+                            <div class="capability-example-item">Export clean datasets ready for analysis</div>
+                        </div>
+                    </div>
+
+                    <!-- Email & Calendar -->
+                    <div class="capability-detail" data-capability="email">
+                        <span class="capability-detail-icon">📧</span>
+                        <h3 class="capability-detail-title">Email & Calendar</h3>
+                        <p class="capability-detail-description">
+                            Automate communication and scheduling workflows. Send personalized emails, manage your calendar, and never miss a follow-up.
+                        </p>
+                        <div class="capability-examples-title">What You Can Do</div>
+                        <div class="capability-examples-list">
+                            <div class="capability-example-item">Send personalized emails at scale with merge fields</div>
+                            <div class="capability-example-item">Schedule meetings across time zones automatically</div>
+                            <div class="capability-example-item">Extract action items from email threads</div>
+                            <div class="capability-example-item">Auto-respond based on custom rules</div>
+                            <div class="capability-example-item">Sync calendars bidirectionally</div>
+                            <div class="capability-example-item">Track email open rates and responses</div>
+                        </div>
+                    </div>
+
+                    <!-- Document Management -->
+                    <div class="capability-detail" data-capability="docs">
+                        <span class="capability-detail-icon">📚</span>
+                        <h3 class="capability-detail-title">Document Management</h3>
+                        <p class="capability-detail-description">
+                            Organize, search, and manage your knowledge base. Create nested documentation, build indexes, and never lose track of information again.
+                        </p>
+                        <div class="capability-examples-title">What You Can Do</div>
+                        <div class="capability-examples-list">
+                            <div class="capability-example-item">Create nested docs in Outline or Notion</div>
+                            <div class="capability-example-item">Tag and categorize documents automatically</div>
+                            <div class="capability-example-item">Build semantic indexes for fast search</div>
+                            <div class="capability-example-item">Extract key insights from documents</div>
+                            <div class="capability-example-item">Generate summaries and tables of contents</div>
+                            <div class="capability-example-item">Sync docs across multiple platforms</div>
+                        </div>
+                    </div>
+
+                    <!-- Code & Deployment -->
+                    <div class="capability-detail" data-capability="code">
+                        <span class="capability-detail-icon">⚙️</span>
+                        <h3 class="capability-detail-title">Code & Deployment</h3>
+                        <p class="capability-detail-description">
+                            Development workflows from specification to production. Write, test, and deploy code with full version control and documentation.
+                        </p>
+                        <div class="capability-examples-title">What You Can Do</div>
+                        <div class="capability-examples-list">
+                            <div class="capability-example-item">Write technical specifications from requirements</div>
+                            <div class="capability-example-item">Generate code with tests and documentation</div>
+                            <div class="capability-example-item">Run test suites and fix failing tests</div>
+                            <div class="capability-example-item">Refactor modules for better architecture</div>
+                            <div class="capability-example-item">Deploy to GitHub with proper versioning</div>
+                            <div class="capability-example-item">Update documentation automatically</div>
+                        </div>
+                    </div>
+
+                    <!-- Learning Management -->
+                    <div class="capability-detail" data-capability="learning">
+                        <span class="capability-detail-icon">🎓</span>
+                        <h3 class="capability-detail-title">Learning Management</h3>
+                        <p class="capability-detail-description">
+                            Automate course operations and content platforms. Manage assignments, grade submissions, and keep course materials in sync.
+                        </p>
+                        <div class="capability-examples-title">What You Can Do</div>
+                        <div class="capability-examples-list">
+                            <div class="capability-example-item">Create quizzes in Canvas LMS automatically</div>
+                            <div class="capability-example-item">Update assignments and modules in bulk</div>
+                            <div class="capability-example-item">Grade submissions based on rubrics</div>
+                            <div class="capability-example-item">Sync course materials across platforms</div>
+                            <div class="capability-example-item">Manage student data and rosters</div>
+                            <div class="capability-example-item">Generate progress reports for students</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Deterministic Difference -->
+    <section id="difference">
+        <div class="section-content">
+            <h2 class="scroll-fade">Traditional AI vs OrchestrateOS</h2>
+            <p style="text-align: center; font-size: 2rem; font-weight: 700; color: #fff; margin: 0 auto 60px;">
+                20-50x faster across workflows
+            </p>
+
+            <div class="comparison-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <!-- Slide 1: Research & Analysis -->
+                        <div class="carousel-slide">
+                            <div class="comparison-card">
+                                <div class="comparison-icon">🔍</div>
+                                <h3 class="comparison-category">Research & Analysis</h3>
+                                <p class="comparison-description">
+                                    Scrape websites, extract insights from documents, compile research reports with citations, and synthesize findings across multiple sources.
+                                </p>
+                                <div class="time-comparison">
+                                    <div class="time-block traditional">
+                                        <div class="time-block-label">Traditional AI</div>
+                                        <div class="time-block-value">3-5 hrs</div>
+                                    </div>
+                                    <div class="time-arrow">→</div>
+                                    <div class="time-block orchestrate">
+                                        <div class="time-block-label">OrchestrateOS</div>
+                                        <div class="time-block-value">15 min</div>
+                                    </div>
+                                </div>
+                                <div class="speedup-badge">10-15x faster</div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2: Build Tools -->
+                        <div class="carousel-slide">
+                            <div class="comparison-card">
+                                <div class="comparison-icon">🔧</div>
+                                <h3 class="comparison-category">Build Tools</h3>
+                                <p class="comparison-description">
+                                    Generate specifications, write code, register with the system, run tests, debug errors, and deliver production-ready tools with full documentation.
+                                </p>
+                                <div class="time-comparison">
+                                    <div class="time-block traditional">
+                                        <div class="time-block-label">Traditional AI</div>
+                                        <div class="time-block-value">4-6 hrs</div>
+                                    </div>
+                                    <div class="time-arrow">→</div>
+                                    <div class="time-block orchestrate">
+                                        <div class="time-block-label">OrchestrateOS</div>
+                                        <div class="time-block-value">8 min</div>
+                                    </div>
+                                </div>
+                                <div class="speedup-badge">30-50x faster</div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3: Process Data -->
+                        <div class="carousel-slide">
+                            <div class="comparison-card">
+                                <div class="comparison-icon">📊</div>
+                                <h3 class="comparison-category">Process Data</h3>
+                                <p class="comparison-description">
+                                    Parse large files, transform data formats, validate entries, update databases, generate summaries, and export clean datasets ready for use.
+                                </p>
+                                <div class="time-comparison">
+                                    <div class="time-block traditional">
+                                        <div class="time-block-label">Traditional AI</div>
+                                        <div class="time-block-value">2-4 hrs</div>
+                                    </div>
+                                    <div class="time-arrow">→</div>
+                                    <div class="time-block orchestrate">
+                                        <div class="time-block-label">OrchestrateOS</div>
+                                        <div class="time-block-value">5 min</div>
+                                    </div>
+                                </div>
+                                <div class="speedup-badge">20-40x faster</div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4: Create Content -->
+                        <div class="carousel-slide">
+                            <div class="comparison-card">
+                                <div class="comparison-icon">✍️</div>
+                                <h3 class="comparison-category">Create Content</h3>
+                                <p class="comparison-description">
+                                    Draft blog posts, generate video scripts with timestamps, write email sequences, create social posts, and publish directly to your platforms.
+                                </p>
+                                <div class="time-comparison">
+                                    <div class="time-block traditional">
+                                        <div class="time-block-label">Traditional AI</div>
+                                        <div class="time-block-value">3-4 hrs</div>
+                                    </div>
+                                    <div class="time-arrow">→</div>
+                                    <div class="time-block orchestrate">
+                                        <div class="time-block-label">OrchestrateOS</div>
+                                        <div class="time-block-value">35 min</div>
+                                    </div>
+                                </div>
+                                <div class="speedup-badge">5-8x faster</div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 5: Automate Workflows -->
+                        <div class="carousel-slide">
+                            <div class="comparison-card">
+                                <div class="comparison-icon">⚡</div>
+                                <h3 class="comparison-category">Automate Workflows</h3>
+                                <p class="comparison-description">
+                                    Connect APIs, build multi-step automations, handle authentication, validate data flows, set up triggers, and deploy working systems end-to-end.
+                                </p>
+                                <div class="time-comparison">
+                                    <div class="time-block traditional">
+                                        <div class="time-block-label">Traditional AI</div>
+                                        <div class="time-block-value">5-7 hrs</div>
+                                    </div>
+                                    <div class="time-arrow">→</div>
+                                    <div class="time-block orchestrate">
+                                        <div class="time-block-label">OrchestrateOS</div>
+                                        <div class="time-block-value">12 min</div>
+                                    </div>
+                                </div>
+                                <div class="speedup-badge">25-35x faster</div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 6: Real Execution Data -->
+                        <div class="carousel-slide">
+                            <div class="comparison-card" style="padding: 50px 60px; background: linear-gradient(135deg, rgba(15, 15, 25, 0.95) 0%, rgba(25, 25, 35, 0.95) 100%);">
+                                <h3 class="comparison-category" style="font-size: 2rem; margin-bottom: 0.5rem;">Live Production Data</h3>
+                                <p class="comparison-description" style="margin-bottom: 3rem; font-size: 1.1rem; color: #888;">
+                                    Real tasks from claude_task_results.json
+                                </p>
+
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 900px; margin: 0 auto;">
+                                    <!-- Task Card 1 -->
+                                    <div style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 16px; padding: 25px; position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 15px; right: 15px; background: #10b981; color: #000; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Done</div>
+                                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">✉️</div>
+                                        <div style="font-size: 0.95rem; color: #ddd; line-height: 1.5; margin-bottom: 1rem;">Rewrote 12 investor emails with Pattern Breakers + Backable frameworks</div>
+                                        <div style="display: flex; align-items: baseline; gap: 8px;">
+                                            <span style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">7</span>
+                                            <span style="font-size: 1.1rem; color: #888;">minutes</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Task Card 2 -->
+                                    <div style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 16px; padding: 25px; position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 15px; right: 15px; background: #10b981; color: #000; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Done</div>
+                                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">📧</div>
+                                        <div style="font-size: 0.95rem; color: #ddd; line-height: 1.5; margin-bottom: 1rem;">Analyzed 6 newsletters, identified 47 undefined terms, generated action plan</div>
+                                        <div style="display: flex; align-items: baseline; gap: 8px;">
+                                            <span style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">3</span>
+                                            <span style="font-size: 1.1rem; color: #888;">minutes</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Task Card 3 -->
+                                    <div style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 16px; padding: 25px; position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 15px; right: 15px; background: #10b981; color: #000; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Done</div>
+                                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🎬</div>
+                                        <div style="font-size: 0.95rem; color: #ddd; line-height: 1.5; margin-bottom: 1rem;">Created 9-scene comedy script with character profiles + dialogue</div>
+                                        <div style="display: flex; align-items: baseline; gap: 8px;">
+                                            <span style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">3</span>
+                                            <span style="font-size: 1.1rem; color: #888;">minutes</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Task Card 4 -->
+                                    <div style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 16px; padding: 25px; position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 15px; right: 15px; background: #10b981; color: #000; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Done</div>
+                                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🎥</div>
+                                        <div style="font-size: 0.95rem; color: #ddd; line-height: 1.5; margin-bottom: 1rem;">Removed watermarks from 2 videos using FFmpeg delogo filter</div>
+                                        <div style="display: flex; align-items: baseline; gap: 8px;">
+                                            <span style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">2</span>
+                                            <span style="font-size: 1.1rem; color: #888;">minutes</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Task Card 5 -->
+                                    <div style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 16px; padding: 25px; position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 15px; right: 15px; background: #10b981; color: #000; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Done</div>
+                                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">📋</div>
+                                        <div style="font-size: 0.95rem; color: #ddd; line-height: 1.5; margin-bottom: 1rem;">Built 12-week brand program with 6 phases + curriculum docs</div>
+                                        <div style="display: flex; align-items: baseline; gap: 8px;">
+                                            <span style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">3</span>
+                                            <span style="font-size: 1.1rem; color: #888;">minutes</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Task Card 6 -->
+                                    <div style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 16px; padding: 25px; position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: 15px; right: 15px; background: #10b981; color: #000; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Done</div>
+                                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">📝</div>
+                                        <div style="font-size: 0.95rem; color: #ddd; line-height: 1.5; margin-bottom: 1rem;">Created 4 character profile docs with Sora usernames in Outline</div>
+                                        <div style="display: flex; align-items: baseline; gap: 8px;">
+                                            <span style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">35</span>
+                                            <span style="font-size: 1.1rem; color: #888;">seconds</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="text-align: center; margin-top: 2.5rem; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                                    <span style="font-size: 0.85rem; color: #667eea; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Production Execution Log</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Capabilities -->
+    <section id="capabilities">
+        <div class="section-content">
+            <h2 class="scroll-fade">Core Capabilities</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="icon">🧠</span>
+                    <h3>Persistent Memory</h3>
+                    <p>OrchestrateOS maintains context across every conversation, tool, file, and workflow. You never repeat yourself.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">⚙️</span>
+                    <h3>Built for Reliability</h3>
+                    <p>Schema validation, auto-reconstruction, thread scoring, and execution logs. AI becomes reliable because we engineer it to be.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🔧</span>
+                    <h3>Unified Tool System</h3>
+                    <p>Outline, Airtable, ConvertKit, Nylas, Canvas, Readwise, and more—all talking to each other. No manual integration.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🪄</span>
+                    <h3>Plain English Commands</h3>
+                    <p>Complex workflows run from single sentences. No code, no configuration, no API wrangling.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">⚡</span>
+                    <h3>Finished Outcomes</h3>
+                    <p>Not drafts or suggestions—working tools, sent emails, executed workflows. You get results, not homework.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🛡️</span>
+                    <h3>Self-Monitoring</h3>
+                    <p>Tracks success rates, thread health, error patterns. If it fails, it blocks. If it breaks, it fixes. Reliability through engineering.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real Results -->
+    <section id="results">
+        <div class="section-content">
+            <h2 class="scroll-fade">Real Results</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">10 min</div>
+                    <div class="label">Feature Cycles<br>(vs 2-3 months traditional)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">$0</div>
+                    <div class="label">Marginal Cost<br>(subscription, not per-task)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">20x</div>
+                    <div class="label">Execution Speed<br>(vs manual workflows)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">100%</div>
+                    <div class="label">Autonomous<br>(no babysitting required)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta">
+        <div class="section-content">
+            <h2 class="scroll-fade">Ready to Experience AI That Actually Finishes the Job?</h2>
+            <p>We're onboarding early users who want to eliminate tool sprawl, need autonomous execution (not suggestions), and understand that real AI executes, not chats.</p>
+            <a href="https://airtable.com/appeSyL1vMDYItuYB/shrHtdXYpdvXzoaCv" class="cta-button" target="_blank">Join the Waitlist</a>
+        </div>
+    </section>
+
+    <!-- Three.js -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // Hero Particle Background
+        const heroCanvas = document.getElementById('hero-canvas');
+        const heroScene = new THREE.Scene();
+        const heroCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const heroRenderer = new THREE.WebGLRenderer({ canvas: heroCanvas, alpha: true, antialias: true });
+
+        heroRenderer.setSize(window.innerWidth, window.innerHeight);
+        heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        heroCamera.position.z = 5;
+
+        // Create particles
+        const particleCount = 2000;
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 20;
+            positions[i + 1] = (Math.random() - 0.5) * 20;
+            positions[i + 2] = (Math.random() - 0.5) * 20;
+
+            velocities[i] = (Math.random() - 0.5) * 0.02;
+            velocities[i + 1] = (Math.random() - 0.5) * 0.02;
+            velocities[i + 2] = (Math.random() - 0.5) * 0.02;
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const material = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.05,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        heroScene.add(particles);
+
+        // Mouse interaction
+        const mouse = { x: 0, y: 0 };
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Hero animation
+        function animateHero() {
+            requestAnimationFrame(animateHero);
+
+            const positions = particles.geometry.attributes.position.array;
+
+            for (let i = 0; i < positions.length; i += 3) {
+                positions[i] += velocities[i];
+                positions[i + 1] += velocities[i + 1];
+                positions[i + 2] += velocities[i + 2];
+
+                // Boundaries
+                if (Math.abs(positions[i]) > 10) velocities[i] *= -1;
+                if (Math.abs(positions[i + 1]) > 10) velocities[i + 1] *= -1;
+                if (Math.abs(positions[i + 2]) > 10) velocities[i + 2] *= -1;
+            }
+
+            particles.geometry.attributes.position.needsUpdate = true;
+            particles.rotation.y += 0.0005;
+
+            // Mouse influence
+            heroCamera.position.x += (mouse.x * 0.5 - heroCamera.position.x) * 0.05;
+            heroCamera.position.y += (mouse.y * 0.5 - heroCamera.position.y) * 0.05;
+            heroCamera.lookAt(heroScene.position);
+
+            heroRenderer.render(heroScene, heroCamera);
+        }
+        animateHero();
+
+        // Responsive for hero only
+        window.addEventListener('resize', () => {
+            heroCamera.aspect = window.innerWidth / window.innerHeight;
+            heroCamera.updateProjectionMatrix();
+            heroRenderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+
+    <!-- Carousel Navigation -->
+    <script>
+        // Carousel functionality with mouse drag
+        const track = document.querySelector('.carousel-track');
+        const carouselContainer = document.querySelector('.carousel-container');
+        let currentSlide = 0;
+        const totalSlides = 6; // 6 slides total
+        let autoAdvanceInterval;
+
+        // Drag state
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let animationID = 0;
+
+        function goToSlide(slideIndex) {
+            currentSlide = Math.max(0, Math.min(slideIndex, totalSlides - 1));
+            currentTranslate = currentSlide * -carouselContainer.offsetWidth;
+            prevTranslate = currentTranslate;
+            setSliderPosition();
+        }
+
+        function setSliderPosition() {
+            track.style.transform = `translateX(${currentTranslate}px)`;
+        }
+
+        // Mouse events
+        carouselContainer.addEventListener('mousedown', dragStart);
+        carouselContainer.addEventListener('mousemove', drag);
+        carouselContainer.addEventListener('mouseup', dragEnd);
+        carouselContainer.addEventListener('mouseleave', dragEnd);
+
+        // Touch events
+        carouselContainer.addEventListener('touchstart', dragStart);
+        carouselContainer.addEventListener('touchmove', drag);
+        carouselContainer.addEventListener('touchend', dragEnd);
+
+        function dragStart(e) {
+            isDragging = true;
+            startPos = getPositionX(e);
+            track.classList.add('dragging');
+            clearInterval(autoAdvanceInterval);
+            animationID = requestAnimationFrame(animation);
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            const currentPosition = getPositionX(e);
+            currentTranslate = prevTranslate + currentPosition - startPos;
+        }
+
+        function dragEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            track.classList.remove('dragging');
+            cancelAnimationFrame(animationID);
+
+            const movedBy = currentTranslate - prevTranslate;
+            const threshold = carouselContainer.offsetWidth / 4;
+
+            if (movedBy < -threshold && currentSlide < totalSlides - 1) {
+                currentSlide += 1;
+            } else if (movedBy > threshold && currentSlide > 0) {
+                currentSlide -= 1;
+            }
+
+            goToSlide(currentSlide);
+            startAutoAdvance();
+        }
+
+        function getPositionX(e) {
+            return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        }
+
+        function animation() {
+            setSliderPosition();
+            if (isDragging) requestAnimationFrame(animation);
+        }
+
+        // Auto-advance carousel every 8 seconds
+        function startAutoAdvance() {
+            autoAdvanceInterval = setInterval(() => {
+                const nextSlide = (currentSlide + 1) % totalSlides;
+                goToSlide(nextSlide);
+            }, 8000);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+                clearInterval(autoAdvanceInterval);
+                startAutoAdvance();
+            } else if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
+                goToSlide(currentSlide + 1);
+                clearInterval(autoAdvanceInterval);
+                startAutoAdvance();
+            }
+        });
+
+        // Pause auto-advance when user hovers over carousel
+        const carousel = document.querySelector('.comparison-carousel');
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoAdvanceInterval);
+        });
+        carousel.addEventListener('mouseleave', () => {
+            if (!isDragging) startAutoAdvance();
+        });
+
+        // Initialize
+        goToSlide(0);
+        startAutoAdvance();
+    </script>
+
+    <!-- Capabilities Navigation -->
+    <script>
+        // Capability navigation functionality
+        const capabilityNavItems = document.querySelectorAll('.capability-nav-item');
+        const capabilityDetails = document.querySelectorAll('.capability-detail');
+
+        capabilityNavItems.forEach(navItem => {
+            navItem.addEventListener('click', () => {
+                const targetCapability = navItem.getAttribute('data-capability');
+
+                // Remove active class from all nav items and details
+                capabilityNavItems.forEach(item => item.classList.remove('active'));
+                capabilityDetails.forEach(detail => detail.classList.remove('active'));
+
+                // Add active class to clicked nav item
+                navItem.classList.add('active');
+
+                // Show corresponding detail
+                const targetDetail = document.querySelector(`.capability-detail[data-capability="${targetCapability}"]`);
+                if (targetDetail) {
+                    targetDetail.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- Scroll Animations -->
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2 // Trigger when 20% of element is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: unobserve after animation to prevent re-triggering
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with scroll-fade class
+        document.querySelectorAll('.scroll-fade').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+
+</body>
+</html>
