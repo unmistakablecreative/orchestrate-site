@@ -1541,6 +1541,21 @@
                     <h3>Self-Monitoring</h3>
                     <p>Tracks success rates, thread health, error patterns. If it fails, it blocks. If it breaks, it fixes. Reliability through engineering.</p>
                 </div>
+                <div class="feature-card">
+                    <span class="icon">📁</span>
+                    <h3>File-Based Coordination</h3>
+                    <p>Zero conversation overhead. Agents coordinate through structured files, not chat. Eliminates coordination theater for deterministic execution.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🔨</span>
+                    <h3>Self-Directed Tool Building</h3>
+                    <p>Claude Code autonomously builds new tools as patterns emerge. Encodes workflows into reusable infrastructure without human intervention.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">💰</span>
+                    <h3>Execution Cost Transparency</h3>
+                    <p>Real-time comparison: token-based execution vs OrchestrateOS. Every task shows time saved and cost eliminated. Proof, not promises.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1755,12 +1770,12 @@
             if (isDragging) requestAnimationFrame(animation);
         }
 
-        // Auto-advance carousel every 8 seconds
+        // Auto-advance carousel every 15 seconds (slowed down for better readability)
         function startAutoAdvance() {
             autoAdvanceInterval = setInterval(() => {
                 const nextSlide = (currentSlide + 1) % totalSlides;
                 goToSlide(nextSlide);
-            }, 8000);
+            }, 15000);
         }
 
         // Keyboard navigation
@@ -1778,11 +1793,41 @@
 
         // Pause auto-advance when user hovers over carousel
         const carousel = document.querySelector('.comparison-carousel');
+        let isInteracting = false;
+        let interactionTimer;
+
+        // Pause on hover
         carousel.addEventListener('mouseenter', () => {
+            isInteracting = true;
             clearInterval(autoAdvanceInterval);
         });
+
+        // Resume after user leaves AND stops scrolling/interacting (2 second grace period)
         carousel.addEventListener('mouseleave', () => {
-            if (!isDragging) startAutoAdvance();
+            isInteracting = false;
+            clearTimeout(interactionTimer);
+            interactionTimer = setTimeout(() => {
+                if (!isDragging && !isInteracting) startAutoAdvance();
+            }, 2000);
+        });
+
+        // Reset timer on scroll within carousel (prevents premature slide switch while reading)
+        carousel.addEventListener('wheel', (e) => {
+            if (isInteracting) {
+                clearTimeout(interactionTimer);
+                clearInterval(autoAdvanceInterval);
+
+                // Only restart auto-advance after 3 seconds of no scrolling
+                interactionTimer = setTimeout(() => {
+                    if (!isDragging && isInteracting) {
+                        // User is still hovering but stopped scrolling - keep paused
+                        return;
+                    }
+                    if (!isDragging && !isInteracting) {
+                        startAutoAdvance();
+                    }
+                }, 3000);
+            }
         });
 
         // Initialize
